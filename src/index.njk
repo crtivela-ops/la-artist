@@ -1,0 +1,27 @@
+---
+layout: base.njk
+bodyClass: home
+---
+<section class="intro">
+  <h1>ArtCard: Los Angeles, one postcard at a time</h1>
+  <p>From 2009 to 2015, volunteers left blank, pre-addressed postcards in coffee shops, galleries, libraries, community centers and schools across Los Angeles County. People turned each one into a free 4″ × 6″ canvas, wrote their name and ZIP code on the front, and mailed it back.</p>
+  <p class="stats">{{ groups.stats.artworks }} ArtCards · {{ groups.stats.artists }} artists · {{ groups.stats.zips }} ZIP codes · {{ groups.stats.neighborhoods }} neighborhoods</p>
+  <p class="cta"><a class="btn" href="{{ '/map/' | url }}">Explore the map</a> <a class="btn ghost" href="{{ '/zips/' | url }}">Browse by ZIP</a> <a class="btn ghost" href="{{ '/artists/' | url }}">Artists A–Z</a></p>
+</section>
+
+<section class="mapwrap">
+  <h2>Where the cards came from</h2>
+  <div id="map" class="map" data-prefix="{{ pathPrefix }}" role="region" aria-label="Map of LA County ZIP codes shaded by number of ArtCards"></div>
+  <p class="note">Darker ZIP codes sent in more cards. Tap a ZIP to see its cards. <a href="{{ '/map/' | url }}">Full-screen map</a></p>
+</section>
+
+<section>
+  <h2>From the collection <button class="shuffle" id="shuffle" type="button">Shuffle</button></h2>
+  <div id="wall" data-prefix="{{ pathPrefix }}">
+  {% set items = groups.art | take(30) %}{% include "grid.njk" %}
+  </div>
+</section>
+<link rel="stylesheet" href="{{ '/assets/vendor/leaflet/leaflet.css' | url }}">
+<script src="{{ '/assets/vendor/leaflet/leaflet.js' | url }}"></script>
+<script src="{{ '/assets/js/map.js' | url }}"></script>
+<script src="{{ '/assets/js/wall.js' | url }}"></script>

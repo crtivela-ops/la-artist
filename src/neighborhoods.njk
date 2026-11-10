@@ -1,0 +1,12 @@
+---
+layout: base.njk
+title: Neighborhoods
+permalink: /neighborhoods/
+---
+<h1>Neighborhoods &amp; cities</h1>
+<p class="lede">Neighborhood names as the original site recorded them.</p>
+<ul class="ziplist">
+{%- for n in groups.neighborhoods %}
+<li><a href="{{ ('/neighborhood/' + n.slug + '/') | url }}"><b>{{ n.name }}</b> <span>{{ n.zips | join(', ') }}</span> <i>{{ n.items.length }}</i></a></li>
+{%- endfor %}
+</ul>

@@ -1,0 +1,14 @@
+---
+layout: base.njk
+pagination: { data: groups.artists, size: 1, alias: x }
+permalink: "/artist/{{ x.slug }}/"
+eleventyComputed:
+  title: "{{ x.name }}"
+  description: "ArtCards by {{ x.name }}."
+---
+<div data-pagefind-body>
+<p class="crumbs" data-pagefind-ignore><a href="{{ '/artists/' | url }}">Artists</a></p>
+<h1 data-pagefind-meta="title">{{ x.name }}</h1>
+<p class="lede">{{ x.items.length | plural('ArtCard') }}{% if x.zips.length %} · ZIP {% for z in x.zips %}<a href="{{ ('/zip/' + z + '/') | url }}">{{ z }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% endif %}</p>
+{% set items = x.items %}{% include "grid.njk" %}
+</div>

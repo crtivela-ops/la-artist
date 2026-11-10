@@ -1,0 +1,15 @@
+---
+layout: base.njk
+title: Map
+bodyClass: mappage
+permalink: /map/
+---
+<h1>ArtCards by ZIP code</h1>
+<p class="lede">Each Los Angeles County ZIP code is shaded by how many ArtCards were mailed from it. Tap or click a ZIP code to open its cards.</p>
+<div id="map" class="map tall" data-prefix="{{ pathPrefix }}" role="region" aria-label="Map of LA County ZIP codes shaded by number of ArtCards"></div>
+<div class="legend" id="legend"></div>
+<p class="note">Cards from outside the county: <a href="{{ '/region/outside-la/' | url }}">Outside LA / California</a> ({{ groups.regions[0].items.length }}), <a href="{{ '/region/us-states/' | url }}">U.S. States</a> ({{ groups.regions[1].items.length }}), <a href="{{ '/region/international/' | url }}">International</a> ({{ groups.regions[2].items.length }}), <a href="{{ '/region/unknown/' | url }}">Unknown</a> ({{ groups.regions[3].items.length }}).</p>
+<p class="note small">ZIP boundaries: County of Los Angeles Enterprise GIS, “Zipcodes” layer, simplified. Base map © OpenStreetMap contributors.</p>
+<link rel="stylesheet" href="{{ '/assets/vendor/leaflet/leaflet.css' | url }}">
+<script src="{{ '/assets/vendor/leaflet/leaflet.js' | url }}"></script>
+<script src="{{ '/assets/js/map.js' | url }}"></script>

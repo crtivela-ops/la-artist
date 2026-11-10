@@ -1,0 +1,32 @@
+---
+layout: base.njk
+bodyClass: artpage
+pagination: { data: groups.art, size: 1, alias: a }
+permalink: "/art/{{ a.slug }}/"
+eleventyComputed:
+  title: "ArtCard by {{ a.artist }}{% if a.zips[0] %}, {{ a.zips[0] }}{% endif %}"
+  description: "ArtCard by {{ a.artist }}{% if a.zips[0] %} from ZIP {{ a.zips | join(', ') }}{% endif %}{% if a.neighborhoods[0] %} ({{ a.neighborhoods[0].name }}){% endif %}, posted {{ a.date | niceDate }}."
+---
+{% set nv = groups.nav[a.id] %}
+<article class="art" data-pagefind-body>
+  <figure>
+    <a href="{{ ('/assets/art/' + a.id + '.webp') | url }}"><img src="{{ ('/assets/art/' + a.id + '.webp') | url }}" width="{{ a.w }}" height="{{ a.h }}" alt="ArtCard by {{ a.artist }}" data-pagefind-meta="image[src]"></a>
+  </figure>
+  <div class="meta">
+    <h1 data-pagefind-ignore>ArtCard by <a href="{{ ('/artist/' + a.artistSlug + '/') | url }}">{{ a.artist }}</a></h1>
+    <p class="sr">ArtCard by {{ a.artist }}{% if a.zips.length %}, ZIP {{ a.zips | join(", ") }}{% endif %}{% if a.neighborhoods.length %}, {% for n in a.neighborhoods %}{{ n.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% endif %}{% if a.place.length %}, {{ a.place | join(", ") }}{% endif %}. Posted {{ a.date | niceDate }}.</p>
+    <dl data-pagefind-ignore>
+      <dt>Artist</dt><dd><a href="{{ ('/artist/' + a.artistSlug + '/') | url }}">{{ a.artist }}</a></dd>
+      {% if a.zips.length %}<dt>ZIP code</dt><dd>{% for z in a.zips %}<a href="{{ ('/zip/' + z + '/') | url }}">{{ z }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+      {% if a.neighborhoods.length %}<dt>Neighborhood</dt><dd>{% for n in a.neighborhoods %}<a href="{{ ('/neighborhood/' + n.slug + '/') | url }}">{{ n.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+      {% if a.place.length %}<dt>Place</dt><dd>{{ a.place | join(', ') }}</dd>{% endif %}
+      {% if a.section != 'la' %}<dt>Section</dt><dd>{% for r in groups.regions %}{% if r.slug == a.section %}<a href="{{ ('/region/' + r.slug + '/') | url }}">{{ r.name }}</a>{% endif %}{% endfor %}</dd>{% endif %}
+      <dt>Posted</dt><dd><time datetime="{{ a.date }}">{{ a.date | niceDate }}</time></dd>
+    </dl>
+    <nav class="pn" aria-label="More from {{ nv.label }}" data-pagefind-ignore>
+      {% if nv.prev %}<a rel="prev" href="{{ ('/art/' + nv.prev.slug + '/') | url }}">← Previous</a>{% else %}<span></span>{% endif %}
+      <span class="pnlabel">{{ nv.label }}</span>
+      {% if nv.next %}<a rel="next" href="{{ ('/art/' + nv.next.slug + '/') | url }}">Next →</a>{% else %}<span></span>{% endif %}
+    </nav>
+  </div>
+</article>

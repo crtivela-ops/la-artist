@@ -1,0 +1,22 @@
+---
+layout: base.njk
+title: ZIP codes
+permalink: /zips/
+---
+<h1>Browse by ZIP code</h1>
+<p class="lede">{{ groups.stats.laZips }} Los Angeles County ZIP codes, plus {{ groups.zips.length - groups.stats.laZips }} from elsewhere. Also see the <a href="{{ '/map/' | url }}">map</a>.</p>
+<ul class="ziplist">
+{%- for z in groups.zips %}{% if z.inLA %}
+<li><a href="{{ ('/zip/' + z.zip + '/') | url }}"><b>{{ z.zip }}</b> <span>{% for n in z.neighborhoods %}{{ n.name }}{% if not loop.last %}, {% endif %}{% endfor %}</span> <i>{{ z.items.length }}</i></a></li>
+{%- endif %}{% endfor %}
+</ul>
+<h2>Outside Los Angeles County</h2>
+<ul class="ziplist">
+{%- for z in groups.zips %}{% if not z.inLA %}
+<li><a href="{{ ('/zip/' + z.zip + '/') | url }}"><b>{{ z.zip }}</b> <span>{% for n in z.neighborhoods %}{{ n.name }}{% if not loop.last %}, {% endif %}{% endfor %}</span> <i>{{ z.items.length }}</i></a></li>
+{%- endif %}{% endfor %}
+</ul>
+<h2>No ZIP code</h2>
+<ul class="ziplist">
+{% for r in groups.regions %}<li><a href="{{ ('/region/' + r.slug + '/') | url }}"><b>{{ r.name }}</b> <i>{{ r.items.length }}</i></a></li>{% endfor %}
+</ul>

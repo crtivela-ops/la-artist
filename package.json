@@ -1,0 +1,25 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "eleventy && pagefind --site _site",
+    "serve": "eleventy --serve",
+    "prep": "python3 scripts/prepare_data.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.8",
+    "linkinator": "^8.1.0",
+    "mapshaper": "^0.7.101",
+    "pagefind": "^1.6.0"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  }
+}

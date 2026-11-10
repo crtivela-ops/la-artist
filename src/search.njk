@@ -1,0 +1,16 @@
+---
+layout: base.njk
+title: Search
+permalink: /search/
+---
+<h1>Search the archive</h1>
+<p class="lede">Search by artist name, ZIP code or neighborhood.</p>
+<link href="{{ '/pagefind/pagefind-ui.css' | url }}" rel="stylesheet">
+<div id="search"></div>
+<script src="{{ '/pagefind/pagefind-ui.js' | url }}"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const ui = new PagefindUI({ element: "#search", showSubResults: false, showImages: true, baseUrl: "{{ pathPrefix }}", bundlePath: "{{ '/pagefind/' | url }}" });
+    const q = new URLSearchParams(location.search).get('q'); if (q) ui.triggerSearch(q);
+  });
+</script>

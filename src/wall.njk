@@ -1,0 +1,5 @@
+---
+permalink: /assets/wall.json
+eleventyExcludeFromCollections: true
+---
+[{% for a in groups.art %}["{{ a.slug }}",{{ a.id }},{{ a.artist | json | safe }},"{{ a.zips[0] or '' }}",{{ a.tw }},{{ a.th }}]{% if not loop.last %},{% endif %}{% endfor %}]

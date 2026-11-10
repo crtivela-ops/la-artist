@@ -1,0 +1,8 @@
+<ul class="grid" data-pagefind-ignore>
+{%- for a in items %}
+  <li><a class="card" href="{{ ('/art/' + a.slug + '/') | url }}">
+    <img src="{{ ('/assets/art/' + a.id + '-400.webp') | url }}" width="{{ a.tw }}" height="{{ a.th }}" loading="lazy" decoding="async" alt="ArtCard by {{ a.artist }}{% if a.zips[0] %}, ZIP {{ a.zips[0] }}{% endif %}">
+    <span class="cap"><b>{{ a.artist }}</b>{% if a.zips[0] and showZip != false %} <i>{{ a.zips | join(', ') }}</i>{% endif %}</span>
+  </a></li>
+{%- endfor %}
+</ul>

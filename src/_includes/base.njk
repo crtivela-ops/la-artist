@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if title %}{{ title }} · {% endif %}LA-Artist.com ArtCard Archive</title>
+<meta name="description" content="{{ description or 'An archive of ArtCards: postcard-sized artworks mailed in from across Los Angeles County, organized by ZIP code.' }}">
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | url }}">
+<link rel="icon" href="{{ '/assets/favicon.png' | url }}">
+{% block head %}{% endblock %}
+</head>
+<body class="{{ bodyClass }}">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="logo" href="{{ '/' | url }}"><img src="{{ '/assets/logo.webp' | url }}" width="940" height="150" alt="LA-Artist.com"></a>
+  <nav class="nav" aria-label="Main">
+    <a href="{{ '/map/' | url }}">Map</a>
+    <a href="{{ '/zips/' | url }}">ZIP codes</a>
+    <a href="{{ '/neighborhoods/' | url }}">Neighborhoods</a>
+    <a href="{{ '/artists/' | url }}">Artists</a>
+    <a href="{{ '/search/' | url }}">Search</a>
+    <a href="{{ '/about/' | url }}">About</a>
+  </nav>
+</header>
+<main id="main">
+{{ content | safe }}
+</main>
+<footer class="foot">
+  <p>LA-Artist.com · ArtCard, a mail art project from Los Angeles, 2009–2015. All artworks © their artists.</p>
+  <p><a href="{{ '/about/' | url }}">About the archive</a> · <a href="{{ '/region/outside-la/' | url }}">Outside LA</a> · <a href="{{ '/region/us-states/' | url }}">U.S. States</a> · <a href="{{ '/region/international/' | url }}">International</a> · <a href="{{ '/region/unknown/' | url }}">Unknown</a></p>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>

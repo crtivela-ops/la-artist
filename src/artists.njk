@@ -1,0 +1,14 @@
+---
+layout: base.njk
+title: Artists A–Z
+permalink: /artists/
+---
+<h1>Artists A–Z</h1>
+<p class="lede">{{ groups.artists.length }} artists, listed as they signed their cards.</p>
+<nav class="az" aria-label="Jump to letter">{% for l, list in groups.letters %}<a href="#l-{{ l if l != '#' else 'num' }}">{{ l }}</a>{% endfor %}</nav>
+{% for l, list in groups.letters %}
+<h2 id="l-{{ l if l != '#' else 'num' }}">{{ l }}</h2>
+<ul class="artistlist">
+{%- for x in list %}<li><a href="{{ ('/artist/' + x.slug + '/') | url }}">{{ x.name }}</a>{% if x.items.length > 1 %} <i>{{ x.items.length }}</i>{% endif %}</li>{% endfor %}
+</ul>
+{% endfor %}

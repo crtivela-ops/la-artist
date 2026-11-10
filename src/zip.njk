@@ -1,0 +1,14 @@
+---
+layout: base.njk
+pagination: { data: groups.zips, size: 1, alias: z }
+permalink: "/zip/{{ z.zip }}/"
+eleventyComputed:
+  title: "ZIP {{ z.zip }}"
+  description: "{{ z.items.length }} ArtCards mailed from ZIP code {{ z.zip }}."
+---
+<div data-pagefind-body>
+<p class="crumbs" data-pagefind-ignore><a href="{{ '/zips/' | url }}">ZIP codes</a>{% if not z.inLA %} · <a href="{{ '/region/outside-la/' | url }}">outside LA County</a>{% endif %}</p>
+<h1>ZIP {{ z.zip }}</h1>
+<p class="lede">{{ z.items.length | plural('ArtCard') }}{% if z.neighborhoods.length %} · {% for n in z.neighborhoods %}<a href="{{ ('/neighborhood/' + n.slug + '/') | url }}">{{ n.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% endif %}{% if not z.inLA %} · outside Los Angeles County{% endif %}</p>
+{% set items = z.items %}{% set showZip = false %}{% include "grid.njk" %}
+</div>

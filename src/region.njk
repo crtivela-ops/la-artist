@@ -1,0 +1,13 @@
+---
+layout: base.njk
+pagination: { data: groups.regions, size: 1, alias: r }
+permalink: "/region/{{ r.slug }}/"
+eleventyComputed:
+  title: "{{ r.name }}"
+---
+<div data-pagefind-body>
+<p class="crumbs" data-pagefind-ignore><a href="{{ '/zips/' | url }}">ZIP codes</a></p>
+<h1>{{ r.name }}</h1>
+<p class="lede">{{ r.blurb }} {{ r.items.length | plural('ArtCard') }}.</p>
+{% set items = r.items %}{% include "grid.njk" %}
+</div>
