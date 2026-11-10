@@ -45,3 +45,7 @@ dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0 0 18px}dt{c
 .leaflet-container a{color:#7a3f8f}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .leaflet-tile-pane{filter:grayscale(1) brightness(1.06) contrast(.9)}
+.legal h2{font-size:1.1rem;display:block}.legal h3{font-size:1rem;margin-top:1.4em}
+.legal address{font-style:normal;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;line-height:1.6}
+.updated{background:#fff7e8;border-left:4px solid var(--orange);padding:10px 14px;border-radius:6px}
+.license{font-size:13px;color:var(--muted);margin:0 0 14px}
