@@ -5,7 +5,7 @@ a{color:#7a3f8f}a:hover{color:var(--orange)}
 img{max-width:100%;height:auto;display:block}
 .skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:9}
 .top{background:#fff;border-bottom:4px solid var(--purple);padding:12px 16px 0;position:sticky;top:0;z-index:1000}
-.logo img,.wordmark img{width:min(340px,86vw);height:auto;margin:0 auto 4px;display:block}
+.logo img,.wordmark img{width:min(280px,72vw);height:auto;margin:0 auto 4px;display:block}
 .wordmark{display:block;text-align:center;text-decoration:none;line-height:0}
 .formerly{margin:2px 0 6px;text-align:center;color:var(--muted);font-size:13px}
 .nav{display:flex;gap:2px;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 12px}
@@ -34,7 +34,7 @@ h2{font-size:1.3rem;margin:1.6em 0 .6em;display:flex;align-items:center;gap:12px
 .ziplist{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
 .ziplist a{display:flex;gap:8px;align-items:baseline;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-decoration:none;color:var(--ink)}
 .ziplist a:hover{border-color:var(--purple)}.ziplist span{flex:1;color:var(--muted);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ziplist i{font-style:normal;font-weight:700;color:var(--purple)}
-.az{display:flex;flex-wrap:wrap;gap:4px;position:sticky;top:140px;background:var(--bg);padding:6px 0;z-index:5}.az a{min-width:34px;text-align:center;padding:6px;background:#fff;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-weight:700}
+.az{display:flex;flex-wrap:wrap;gap:4px;position:sticky;top:157px;background:var(--bg);padding:6px 0;z-index:5}.az a{min-width:34px;text-align:center;padding:6px;background:#fff;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-weight:700}
 .artistlist{columns:2 160px;padding:0;list-style:none}.artistlist li{padding:3px 0;break-inside:avoid}.artistlist i{color:var(--muted);font-style:normal;font-size:13px}
 .art{display:grid;gap:20px}@media(min-width:900px){.art{grid-template-columns:minmax(0,2fr) minmax(260px,1fr);align-items:start}}
 .art figure{margin:0;background:#fff;border-radius:var(--r);padding:10px;box-shadow:0 4px 18px #0000001a}
