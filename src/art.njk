@@ -4,8 +4,15 @@ bodyClass: artpage
 pagination: { data: groups.art, size: 1, alias: a }
 permalink: "/art/{{ a.slug }}/"
 eleventyComputed:
-  title: "ArtCard by {{ a.artist }}{% if a.zips[0] %}, {{ a.zips[0] }}{% endif %}"
-  description: "ArtCard by {{ a.artist }}{% if a.zips[0] %} from ZIP {{ a.zips | join(', ') }}{% endif %}{% if a.neighborhoods[0] %} ({{ a.neighborhoods[0].name }}){% endif %}, posted {{ a.date | niceDate }}."
+  title: "ArtCard by {{ a.artist | safe }}{% if a.zips[0] %}, {{ a.zips[0] | safe }}{% endif %}"
+  description: "ArtCard by {{ a.artist | safe }}{% if a.zips[0] %} from ZIP {{ a.zips | join(', ') | safe }}{% endif %}{% if a.neighborhoods[0] %} ({{ a.neighborhoods[0].name | safe }}){% endif %}, posted {{ a.date | niceDate | safe }}."
+  ogImage: "/assets/art/{{ a.id }}.webp"
+  ogImageWidth: "{{ a.w }}"
+  ogImageHeight: "{{ a.h }}"
+  ogImageAlt: "ArtCard by {{ a.artist | safe }}"
+  shareTitle: "ArtCard by {{ a.artist | safe }}"
+  shareText: "ArtCard by {{ a.artist | safe }} on ArtCard.LA"
+  shareFile: "/assets/art/{{ a.id }}.webp"
 ---
 {% set nv = groups.nav[a.id] %}
 <article class="art" data-pagefind-body>
@@ -23,6 +30,7 @@ eleventyComputed:
       {% if a.section != 'la' %}<dt>Section</dt><dd>{% for r in groups.regions %}{% if r.slug == a.section %}<a href="{{ ('/region/' + r.slug + '/') | url }}">{{ r.name }}</a>{% endif %}{% endfor %}</dd>{% endif %}
       <dt>Posted</dt><dd><time datetime="{{ a.date }}">{{ a.date | niceDate }}</time></dd>
     </dl>
+    {% include "share.njk" %}
     <p class="license" data-pagefind-ignore>© {{ a.artist }}, who retains copyright. Shared under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 United States License</a>. <a href="{{ '/terms-of-use/' | url }}">Terms</a></p>
     <nav class="pn" aria-label="More from {{ nv.label }}" data-pagefind-ignore>
       {% if nv.prev %}<a rel="prev" href="{{ ('/art/' + nv.prev.slug + '/') | url }}">← Previous</a>{% else %}<span></span>{% endif %}

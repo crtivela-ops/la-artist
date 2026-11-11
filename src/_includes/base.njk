@@ -11,6 +11,19 @@
 <meta property="og:title" content="{% if title %}{{ title }} · {% endif %}ArtCard.LA">
 <meta property="og:url" content="{{ siteUrl }}{{ page.url | url }}">
 <meta property="og:type" content="website">
+{%- set metaDesc = description or 'An archive of ArtCards: postcard-sized artworks mailed in from across Los Angeles County, organized by ZIP code.' %}
+{%- set metaTitle = (title + ' · ArtCard.LA') if title else 'ArtCard.LA' %}
+{%- set metaImage = siteUrl + ((ogImage or '/assets/og-default.png') | url) %}
+<meta property="og:description" content="{{ metaDesc }}">
+<meta property="og:image" content="{{ metaImage }}">
+<meta property="og:image:width" content="{{ ogImageWidth if ogImage else 1200 }}">
+<meta property="og:image:height" content="{{ ogImageHeight if ogImage else 630 }}">
+<meta property="og:image:alt" content="{{ ogImageAlt if ogImage else 'ArtCard: Los Angeles, one postcard at a time' }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ metaTitle }}">
+<meta name="twitter:description" content="{{ metaDesc }}">
+<meta name="twitter:image" content="{{ metaImage }}">
+<meta name="twitter:image:alt" content="{{ ogImageAlt if ogImage else 'ArtCard: Los Angeles, one postcard at a time' }}">
 <link rel="icon" href="{{ '/assets/favicon.png' | url }}">
 {% block head %}{% endblock %}
 </head>

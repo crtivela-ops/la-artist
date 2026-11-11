@@ -1,0 +1,8 @@
+{%- set shareUrl = siteUrl + (page.url | url) -%}
+<div class="share" data-share data-pagefind-ignore hidden data-url="{{ shareUrl }}" data-title="{{ shareTitle }}" data-text="{{ shareText }}"{% if shareFile %} data-file="{{ shareFile | url }}"{% endif %}>
+  <button type="button" class="share-btn" data-share-native hidden><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Share</button>
+  <button type="button" class="share-btn" data-share-copy><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>Copy link</button>
+  <span class="share-status" role="status" aria-live="polite" data-share-status></span>
+  <input class="share-field" type="text" readonly value="{{ shareUrl }}" aria-label="Link to this page" data-share-field hidden>
+</div>
+<script src="{{ '/assets/js/share.js' | url }}" defer></script>
