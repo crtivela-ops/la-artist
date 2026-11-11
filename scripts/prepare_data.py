@@ -143,12 +143,12 @@ artist_by_norm = {norm(a['artist']): a['artistSlug'] for a in art}
 for name, slug in db.execute("select t.name,t.slug from wp_terms t join wp_term_taxonomy tt using(term_id) where taxonomy='post_tag'"):
     n = norm(canon.get(MANUAL.get(html.unescape(name), html.unescape(name)), html.unescape(name)))
     if n in artist_by_norm: add(f"profile/{slug}", f"/artist/{artist_by_norm[n]}/")
-for old, new in [('artcard-map', '/map/'), ('neighborhood-art-archives', '/zips/'), ('artcard', '/about/'), ('participate-3', '/about/'), ('get-involved', '/about/'), ('books', '/about/'), ('documentary-film', '/about/'), ('terms', '/terms-of-use/'), ('privacy', '/privacy-policy/')]:
+for old, new in [('artcard-map', '/map/'), ('neighborhood-art-archives', '/zips/'), ('artcard', '/about/'), ('participate-3', '/about/'), ('get-involved', '/about/'), ('documentary-film', '/about/'), ('terms', '/terms-of-use/'), ('privacy', '/privacy-policy/')]:
     add(old, new)
 # old artist-page addresses from the first preview, now merged
 for old, new in [('artist/liliam', '/artist/liliam-p-revheim/'), ('artist/larry-s', '/artist/larry-swanson/')]:
     redirects[f'/{old}/'] = new
-RESERVED = ('terms-of-use', 'privacy-policy', 'art', 'artist', 'artists', 'zip', 'zips', 'neighborhood', 'neighborhoods', 'region', 'map', 'search', 'about', 'assets', 'pagefind')
+RESERVED = ('terms-of-use', 'privacy-policy', 'art', 'artist', 'artists', 'zip', 'zips', 'neighborhood', 'neighborhoods', 'region', 'map', 'search', 'about', 'books', 'assets', 'pagefind')
 redirects = {o: n for o, n in redirects.items() if not (o.strip('/') in RESERVED or (o.split('/')[1] in ('art', 'artist', 'zip', 'region', 'assets', 'pagefind') and o not in ('/artist/liliam/', '/artist/larry-s/')))
              and not (o.startswith('/neighborhood/') and o.count('/') == 3 and o.split('/')[2] in used_neigh)}
 json.dump([dict(old=o, new=n) for o, n in sorted(redirects.items())], open(os.path.join(DATA, 'redirects.json'), 'w'))
