@@ -3,16 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% if title %}{{ title }} · {% endif %}LA-Artist.com ArtCard Archive</title>
+<title>{% if title %}{{ title }} · {% endif %}ArtCard.LA</title>
 <meta name="description" content="{{ description or 'An archive of ArtCards: postcard-sized artworks mailed in from across Los Angeles County, organized by ZIP code.' }}">
 <link rel="stylesheet" href="{{ '/assets/css/site.css' | url }}">
+<link rel="canonical" href="{{ siteUrl }}{{ page.url | url }}">
+<meta property="og:site_name" content="ArtCard.LA">
+<meta property="og:title" content="{% if title %}{{ title }} · {% endif %}ArtCard.LA">
+<meta property="og:url" content="{{ siteUrl }}{{ page.url | url }}">
+<meta property="og:type" content="website">
 <link rel="icon" href="{{ '/assets/favicon.png' | url }}">
 {% block head %}{% endblock %}
 </head>
 <body class="{{ bodyClass }}">
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
-  <a class="logo" href="{{ '/' | url }}"><img src="{{ '/assets/logo.webp' | url }}" width="940" height="150" alt="LA-Artist.com"></a>
+  <a class="logo wordmark" href="{{ '/' | url }}" aria-label="ArtCard.LA home"><span class="wm-a">ArtCard</span><span class="wm-b">.LA</span></a>
+  <p class="formerly">formerly LA-Artist.com</p>
   <nav class="nav" aria-label="Main">
     <a href="{{ '/map/' | url }}">Map</a>
     <a href="{{ '/zips/' | url }}">ZIP codes</a>
@@ -26,7 +32,7 @@
 {{ content | safe }}
 </main>
 <footer class="foot">
-  <p>LA-Artist.com · ArtCard, a mail art project from Los Angeles, 2009–2015. All artworks © their artists.</p>
+  <p>ArtCard.LA (formerly LA-Artist.com) · ArtCard, a mail art project from Los Angeles, 2009–2015. All artworks © their artists.</p>
   <p><a href="{{ '/about/' | url }}">About the archive</a> · <a href="{{ '/region/outside-la/' | url }}">Outside LA</a> · <a href="{{ '/region/us-states/' | url }}">U.S. States</a> · <a href="{{ '/region/international/' | url }}">International</a> · <a href="{{ '/region/unknown/' | url }}">Unknown</a></p>
   <p class="legalnav"><a href="{{ '/terms-of-use/' | url }}">Terms of Use</a> · <a href="{{ '/privacy-policy/' | url }}">Privacy Policy</a></p>
 </footer>

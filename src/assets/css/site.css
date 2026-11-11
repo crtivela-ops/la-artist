@@ -6,6 +6,9 @@ img{max-width:100%;height:auto;display:block}
 .skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:9}
 .top{background:#fff;border-bottom:4px solid var(--purple);padding:12px 16px 0;position:sticky;top:0;z-index:1000}
 .logo img{width:min(300px,78vw);margin:0 auto 6px}
+.wordmark{display:block;text-align:center;text-decoration:none;font-weight:800;font-size:clamp(30px,8vw,44px);line-height:1.05;letter-spacing:-.5px}
+.wordmark .wm-a{color:var(--purple)}.wordmark .wm-b{color:var(--orange)}
+.formerly{margin:2px 0 6px;text-align:center;color:var(--muted);font-size:13px}
 .nav{display:flex;gap:2px;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 12px}
 .nav::-webkit-scrollbar{display:none}
 .nav a{flex:none;padding:10px 12px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;border-bottom:3px solid transparent}

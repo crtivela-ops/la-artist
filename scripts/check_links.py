@@ -1,5 +1,5 @@
 import os,re,sys,html,urllib.parse,collections
-SITE=sys.argv[1] if len(sys.argv)>1 else '_site'; PREFIX=sys.argv[2] if len(sys.argv)>2 else '/la-artist/'
+SITE=sys.argv[1] if len(sys.argv)>1 else '_site'; PREFIX=sys.argv[2] if len(sys.argv)>2 else '/'
 bad=collections.defaultdict(list); n=0; refs=0; ext=set()
 attr=re.compile(r'''(?:href|src|content)\s*=\s*["']([^"']+)["']''',re.I)
 for dp,_,fs in os.walk(SITE):
