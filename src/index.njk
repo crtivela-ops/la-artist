@@ -6,6 +6,96 @@ eleventyComputed:
   title: "Los Angeles mail art, one postcard at a time"
   description: "An archive of {{ groups.stats.artworks }} ArtCards by {{ groups.stats.artists }} artists from across Los Angeles County (2009–2015), organized by ZIP code and neighborhood. Formerly LA-Artist.com."
 ---
+<section class="hero" data-hero aria-roledescription="carousel" aria-label="Featured ArtCards" tabindex="0">
+  <div class="hero-stage">
+    {% for a in homepage.hero %}
+    <a class="hero-slide{% if loop.first %} is-active{% endif %}" data-hero-slide href="{{ ('/art/' + a.slug + '/') | url }}"{% if not loop.first %} hidden{% endif %} aria-hidden="{{ 'false' if loop.first else 'true' }}">
+      <img
+        src="{{ ('/assets/art/' + a.id + '.webp') | url }}"
+        srcset="{{ ('/assets/art/' + a.id + '-400.webp') | url }} 400w, {{ ('/assets/art/' + a.id + '.webp') | url }} {{ a.w }}w"
+        sizes="(max-width: 1200px) calc(100vw - 32px), 1168px"
+        width="{{ a.w }}" height="{{ a.h }}"
+        alt="ArtCard by {{ a.artist }}"
+        {% if loop.first %}fetchpriority="high" decoding="async"{% else %}loading="lazy" decoding="async"{% endif %}>
+    </a>
+    {% endfor %}
+    <button class="hero-ctrl hero-prev" type="button" data-hero-prev aria-label="Previous ArtCard" hidden>‹</button>
+    <button class="hero-ctrl hero-next" type="button" data-hero-next aria-label="Next ArtCard" hidden>›</button>
+  </div>
+  <div class="hero-bar">
+    {%- for a in homepage.hero %}
+    <p class="hero-cap"{% if not loop.first %} hidden{% endif %} data-hero-cap data-hero-slide-cap>
+      <a href="{{ ('/art/' + a.slug + '/') | url }}">ArtCard by {{ a.artist }}</a>
+      {%- if a.neighborhoods and a.neighborhoods[0] and a.neighborhoods[0].slug != 'japan' -%}
+        <i> · <a href="{{ ('/neighborhood/' + a.neighborhoods[0].slug + '/') | url }}">{{ a.neighborhoods[0].name }}</a></i>
+      {%- elif a.zips[0] -%}
+        <i> · ZIP {{ a.zips | join(', ') }}</i>
+      {%- endif %}
+    </p>
+    {%- endfor %}
+    <div class="hero-dots" role="tablist" aria-label="Choose a featured ArtCard">
+      {% for a in homepage.hero %}
+      <button type="button" data-hero-dot role="tab" aria-label="ArtCard by {{ a.artist }}"{% if loop.first %} class="is-active" aria-current="true"{% endif %}></button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script src="{{ '/assets/js/hero.js' | url }}" defer></script>
+
+<section class="standouts">
+  <h2>Neighborhood Standouts</h2>
+  <p class="note standout-week">{{ homepage.standouts.label }}. A rotating selection of cards mailed from neighborhoods across Los Angeles County.</p>
+  {% for n in homepage.standouts.neighborhoods %}
+  <section class="standout-hood">
+    <h3><a href="{{ ('/neighborhood/' + n.slug + '/') | url }}">{{ n.name }}</a></h3>
+    <p class="note standout-sub"><a href="{{ ('/neighborhood/' + n.slug + '/') | url }}">{{ n.archiveCount | plural('ArtCard', 'ArtCards') }} from {{ n.name }}</a></p>
+    {% for a in n.cards %}
+    <article class="standout">
+      <a class="standout-frame" href="{{ ('/art/' + a.slug + '/') | url }}">
+        <img
+          src="{{ ('/assets/art/' + a.id + '.webp') | url }}"
+          srcset="{{ ('/assets/art/' + a.id + '-400.webp') | url }} 400w, {{ ('/assets/art/' + a.id + '.webp') | url }} {{ a.w }}w"
+          sizes="(max-width: 792px) calc(100vw - 32px), 740px"
+          width="{{ a.w }}" height="{{ a.h }}"
+          alt="ArtCard by {{ a.artist }}"
+          loading="lazy" decoding="async">
+      </a>
+      <p class="standout-cap"><a href="{{ ('/art/' + a.slug + '/') | url }}">ArtCard by {{ a.artist }}</a></p>
+      <div class="share quiet" data-share hidden
+        data-url="{{ siteUrl }}{{ ('/art/' + a.slug + '/') | url }}"
+        data-title="ArtCard by {{ a.artist | e }}"
+        data-text="ArtCard by {{ a.artist | e }} on ArtCard.LA"
+        data-file="{{ ('/assets/art/' + a.id + '.webp') | url }}">
+        <button type="button" class="share-btn" data-share-native hidden><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Share</button>
+        <button type="button" class="share-btn" data-share-copy><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>Copy link</button>
+        <span class="share-status" role="status" aria-live="polite" data-share-status></span>
+        <input class="share-field" type="text" readonly value="{{ siteUrl }}{{ ('/art/' + a.slug + '/') | url }}" aria-label="Link to this ArtCard" data-share-field hidden>
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+  {% endfor %}
+</section>
+<script src="{{ '/assets/js/share.js' | url }}" defer></script>
+
+<section class="classics">
+  <h2>From the Classics</h2>
+  <p class="note">A few earlier cards from the archive.</p>
+  {% set items = homepage.classics %}{% set showZip = true %}{% include "grid.njk" %}
+</section>
+
+<section class="home-books" aria-labelledby="home-books-h">
+  <div class="home-covers">
+    <a href="{{ '/books/' | url }}"><img src="{{ '/assets/books/artcard-volume-1.webp' | url }}" width="401" height="401" alt=""></a>
+    <a href="{{ '/books/' | url }}"><img src="{{ '/assets/books/artcard-volume-2.webp' | url }}" width="401" height="255" alt=""></a>
+  </div>
+  <div>
+    <h2 id="home-books-h">Books</h2>
+    <p>ArtCard Volume 1 and Volume 2, published in 2014, are still available in print and as a free digital edition on MagCloud.</p>
+    <p class="cta" style="margin-top:10px"><a class="btn ghost" href="{{ '/books/' | url }}">See the books</a></p>
+  </div>
+</section>
+
 <section class="intro">
   <h1>ArtCard: Los Angeles, one postcard at a time</h1>
   <p>From 2009 to 2015, volunteers left blank, pre-addressed postcards in coffee shops, galleries, libraries, community centers and schools across Los Angeles County. People turned each one into a free 4″ × 6″ canvas, wrote their name and ZIP code on the front, and mailed it back.</p>

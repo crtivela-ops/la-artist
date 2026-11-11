@@ -1,0 +1,25 @@
+{
+  "_comment": "Homepage curations. hero = slideshow IDs (one card per artist, ~12). classics = From the Classics strip. Swap IDs as needed; each ID must exist in artworks.json.",
+  "hero": [
+    17227,
+    17265,
+    17678,
+    18591,
+    17466,
+    17612,
+    17674,
+    17231,
+    17443,
+    62,
+    35,
+    17459
+  ],
+  "classics": [
+    10827,
+    158,
+    276,
+    6577,
+    10805,
+    68
+  ]
+}

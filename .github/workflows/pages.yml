@@ -2,6 +2,9 @@ name: Build and deploy to GitHub Pages
 on:
   push: { branches: [main] }
   workflow_dispatch:
+  # Sunday 6:00 AM Pacific Standard Time (14:00 UTC). During PDT this is 7:00 AM Pacific.
+  schedule:
+    - cron: "0 14 * * 0"
 permissions: { contents: read, pages: write, id-token: write }
 concurrency: { group: pages, cancel-in-progress: true }
 jobs:
