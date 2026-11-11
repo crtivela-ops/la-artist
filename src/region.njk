@@ -1,9 +1,11 @@
 ---
 layout: base.njk
+pageType: region
 pagination: { data: groups.regions, size: 1, alias: r }
 permalink: "/region/{{ r.slug }}/"
 eleventyComputed:
   title: "{{ r.name }}"
+  description: "{{ r.seoDescription | safe }}"
 ---
 <div data-pagefind-body>
 <p class="crumbs" data-pagefind-ignore><a href="{{ '/zips/' | url }}">ZIP codes</a></p>

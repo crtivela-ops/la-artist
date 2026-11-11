@@ -2,6 +2,9 @@
 layout: base.njk
 title: Not found
 permalink: /404.html
+eleventyExcludeFromCollections: true
+robots: noindex
+description: "That page is not in the ArtCard.LA archive. Try search, the map, or artists A–Z."
 ---
 <h1>Card not found</h1>
 <p class="lede">That page isn't in the archive. Try <a href="{{ '/search/' | url }}">search</a>, the <a href="{{ '/map/' | url }}">map</a>, or <a href="{{ '/artists/' | url }}">artists A–Z</a>.</p>

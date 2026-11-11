@@ -2,6 +2,8 @@
 layout: base.njk
 title: ZIP codes
 permalink: /zips/
+eleventyComputed:
+  description: "Browse {{ groups.stats.laZips }} Los Angeles County ZIP codes, plus cards mailed from elsewhere, in the ArtCard archive."
 ---
 <h1>Browse by ZIP code</h1>
 <p class="lede">{{ groups.stats.laZips }} Los Angeles County ZIP codes, plus {{ groups.zips.length - groups.stats.laZips }} from elsewhere. Also see the <a href="{{ '/map/' | url }}">map</a>.</p>

@@ -4,7 +4,7 @@ permalink: "{{ r.old }}index.html"
 eleventyExcludeFromCollections: true
 ---
 <!doctype html><html lang="en"><head><meta charset="utf-8"><title>Moved</title>
-<meta name="robots" content="noindex"><link rel="canonical" href="{{ r.new | url }}">
+<meta name="robots" content="noindex"><link rel="canonical" href="{{ siteUrl }}{{ r.new | url }}">
 <meta http-equiv="refresh" content="0; url={{ r.new | url }}">
 <script>location.replace({{ (r.new | url) | json | safe }} + location.hash)</script></head>
 <body><p>This page moved to <a href="{{ r.new | url }}">{{ r.new | url }}</a>.</p></body></html>

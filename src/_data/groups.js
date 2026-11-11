@@ -44,5 +44,72 @@ for (const a of art) { const l = primaryList(a); const i = l.indexOf(a); nav[a.i
 
 const counts = Object.fromEntries(zips.filter((z) => z.inLA).map((z) => [z.zip, z.items.length]));
 const years = [...new Set(art.map((a) => a.year))].sort();
+
+// Unique titles/descriptions and JSON-LD fragments (real data only).
+const SITE_URL = process.env.SITE_URL ?? "https://artcard.la";
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const niceDate = (d) => { const [y, m, dd] = d.split("-"); return `${months[+m - 1]} ${+dd}, ${y}`; };
+const shortTitle = (a) => `ArtCard by ${a.artist}` + (a.zips[0] ? `, ${a.zips[0]}` : "");
+const datedTitle = (a) => `${shortTitle(a)}, ${niceDate(a.date)}`;
+const shortCounts = new Map();
+for (const a of art) shortCounts.set(shortTitle(a), (shortCounts.get(shortTitle(a)) || 0) + 1);
+const datedCounts = new Map();
+for (const a of art) {
+  if (shortCounts.get(shortTitle(a)) > 1) datedCounts.set(datedTitle(a), (datedCounts.get(datedTitle(a)) || 0) + 1);
+}
+for (const a of art) {
+  const short = shortTitle(a);
+  let title = short;
+  let uniqueId = false;
+  if (shortCounts.get(short) > 1) {
+    const dated = datedTitle(a);
+    if ((datedCounts.get(dated) || 0) > 1) { title = `${dated} (#${a.id})`; uniqueId = true; }
+    else title = dated;
+  }
+  let description = `ArtCard by ${a.artist}`;
+  if (a.zips.length) description += ` from ZIP ${a.zips.join(", ")}`;
+  if (a.neighborhoods[0]) description += ` (${a.neighborhoods[0].name})`;
+  description += `, posted ${niceDate(a.date)}`;
+  if (uniqueId) description += ` (card #${a.id})`;
+  description += ".";
+  a.seoTitle = title;
+  a.seoDescription = description;
+  a.jsonLd = {
+    "@type": "VisualArtwork",
+    name: title,
+    url: `${SITE_URL}/art/${a.slug}/`,
+    image: { "@type": "ImageObject", url: `${SITE_URL}/assets/art/${a.id}.webp`, width: a.w, height: a.h },
+    creator: { "@type": "Person", name: a.artist, url: `${SITE_URL}/artist/${a.artistSlug}/` },
+    copyrightHolder: { "@type": "Person", name: a.artist },
+    license: "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
+    dateCreated: a.date,
+    artform: "Mail art",
+    artMedium: "Postcard",
+  };
+}
+for (const x of artists) {
+  const url = `${SITE_URL}/artist/${x.slug}/`;
+  x.seoDescription = `${x.items.length === 1 ? "1 ArtCard" : `${x.items.length} ArtCards`} by ${x.name}` + (x.zips.length ? ` from ZIP ${x.zips.join(", ")}` : "") + ".";
+  x.jsonLd = [
+    { "@type": "Person", "@id": `${url}#person`, name: x.name, url },
+    { "@type": "CollectionPage", url, name: `ArtCards by ${x.name}`, mainEntity: { "@id": `${url}#person` } },
+  ];
+}
+for (const z of zips) {
+  const hoods = z.neighborhoods.map((n) => n.name);
+  z.seoTitle = `ArtCards from ZIP ${z.zip}` + (hoods.length === 1 ? `, ${hoods[0]}` : "");
+  z.seoDescription = `${z.items.length === 1 ? "1 ArtCard" : `${z.items.length} ArtCards`} mailed from ZIP code ${z.zip}` + (hoods.length ? ` (${hoods.join(", ")})` : "") + (z.inLA ? "" : ", outside Los Angeles County") + ".";
+  z.jsonLd = { "@type": "CollectionPage", url: `${SITE_URL}/zip/${z.zip}/`, name: z.seoTitle, mainEntity: { "@type": "Collection", name: z.seoTitle, numberOfItems: z.items.length } };
+}
+for (const n of neighborhoods) {
+  n.seoTitle = `ArtCards from ${n.name}`;
+  n.seoDescription = `${n.items.length === 1 ? "1 ArtCard" : `${n.items.length} ArtCards`} mailed from ${n.name}` + (n.zips.length ? `, ZIP ${n.zips.join(", ")}` : "") + ".";
+  n.jsonLd = { "@type": "CollectionPage", url: `${SITE_URL}/neighborhood/${n.slug}/`, name: n.seoTitle, mainEntity: { "@type": "Collection", name: n.seoTitle, numberOfItems: n.items.length } };
+}
+for (const r of regions) {
+  r.seoDescription = `${r.blurb} ${r.items.length === 1 ? "1 ArtCard" : `${r.items.length} ArtCards`}.`;
+  r.jsonLd = { "@type": "CollectionPage", url: `${SITE_URL}/region/${r.slug}/`, name: r.name, mainEntity: { "@type": "Collection", name: r.name, numberOfItems: r.items.length } };
+}
+
 export default { art, zips, neighborhoods, artists, letters, regions, nav, counts, years,
   stats: { artworks: art.length, zips: zips.length, laZips: Object.keys(counts).length, artists: artists.length, neighborhoods: neighborhoods.length, first: art[0].date, last: art[art.length - 1].date } };

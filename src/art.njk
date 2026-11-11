@@ -1,15 +1,16 @@
 ---
 layout: base.njk
 bodyClass: artpage
+pageType: artwork
 pagination: { data: groups.art, size: 1, alias: a }
 permalink: "/art/{{ a.slug }}/"
 eleventyComputed:
-  title: "ArtCard by {{ a.artist | safe }}{% if a.zips[0] %}, {{ a.zips[0] | safe }}{% endif %}"
-  description: "ArtCard by {{ a.artist | safe }}{% if a.zips[0] %} from ZIP {{ a.zips | join(', ') | safe }}{% endif %}{% if a.neighborhoods[0] %} ({{ a.neighborhoods[0].name | safe }}){% endif %}, posted {{ a.date | niceDate | safe }}."
+  title: "{{ a.seoTitle | safe }}"
+  description: "{{ a.seoDescription | safe }}"
   ogImage: "/assets/art/{{ a.id }}.webp"
   ogImageWidth: "{{ a.w }}"
   ogImageHeight: "{{ a.h }}"
-  ogImageAlt: "ArtCard by {{ a.artist | safe }}"
+  ogImageAlt: "{{ a.seoTitle | safe }}"
   shareTitle: "ArtCard by {{ a.artist | safe }}"
   shareText: "ArtCard by {{ a.artist | safe }} on ArtCard.LA"
   shareFile: "/assets/art/{{ a.id }}.webp"
@@ -17,7 +18,7 @@ eleventyComputed:
 {% set nv = groups.nav[a.id] %}
 <article class="art" data-pagefind-body>
   <figure>
-    <a href="{{ ('/assets/art/' + a.id + '.webp') | url }}"><img src="{{ ('/assets/art/' + a.id + '.webp') | url }}" width="{{ a.w }}" height="{{ a.h }}" alt="ArtCard by {{ a.artist }}" data-pagefind-meta="image[src]"></a>
+    <a href="{{ ('/assets/art/' + a.id + '.webp') | url }}"><img src="{{ ('/assets/art/' + a.id + '.webp') | url }}" width="{{ a.w }}" height="{{ a.h }}" alt="{{ a.seoTitle }}" data-pagefind-meta="image[src]"></a>
   </figure>
   <div class="meta">
     <h1 data-pagefind-ignore>ArtCard by <a href="{{ ('/artist/' + a.artistSlug + '/') | url }}">{{ a.artist }}</a></h1>

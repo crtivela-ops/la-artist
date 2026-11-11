@@ -2,6 +2,8 @@
 layout: base.njk
 title: Artists A–Z
 permalink: /artists/
+eleventyComputed:
+  description: "{{ groups.artists.length }} artists in the ArtCard.LA archive, listed as they signed their mail-art postcards from 2009 to 2015."
 ---
 <h1>Artists A–Z</h1>
 <p class="lede">{{ groups.artists.length }} artists, listed as they signed their cards.</p>

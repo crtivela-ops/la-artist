@@ -1,0 +1,26 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>{{ siteUrl }}{{ '/' | url }}</loc></url>
+{%- for path in ['/map/','/zips/','/neighborhoods/','/artists/','/search/','/books/','/about/','/terms-of-use/','/privacy-policy/'] %}
+<url><loc>{{ siteUrl }}{{ path | url }}</loc></url>
+{%- endfor %}
+{%- for a in groups.art %}
+<url><loc>{{ siteUrl }}{{ ('/art/' + a.slug + '/') | url }}</loc></url>
+{%- endfor %}
+{%- for x in groups.artists %}
+<url><loc>{{ siteUrl }}{{ ('/artist/' + x.slug + '/') | url }}</loc></url>
+{%- endfor %}
+{%- for n in groups.neighborhoods %}
+<url><loc>{{ siteUrl }}{{ ('/neighborhood/' + n.slug + '/') | url }}</loc></url>
+{%- endfor %}
+{%- for z in groups.zips %}
+<url><loc>{{ siteUrl }}{{ ('/zip/' + z.zip + '/') | url }}</loc></url>
+{%- endfor %}
+{%- for r in groups.regions %}
+<url><loc>{{ siteUrl }}{{ ('/region/' + r.slug + '/') | url }}</loc></url>
+{%- endfor %}
+</urlset>

@@ -1,10 +1,11 @@
 ---
 layout: base.njk
+pageType: neighborhood
 pagination: { data: groups.neighborhoods, size: 1, alias: n }
 permalink: "/neighborhood/{{ n.slug }}/"
 eleventyComputed:
-  title: "{{ n.name | safe }}"
-  description: "{{ n.items.length | safe }} ArtCards from {{ n.name | safe }}."
+  title: "{{ n.seoTitle | safe }}"
+  description: "{{ n.seoDescription | safe }}"
   ogImage: "/assets/art/{{ n.items[0].id }}.webp"
   ogImageWidth: "{{ n.items[0].w }}"
   ogImageHeight: "{{ n.items[0].h }}"

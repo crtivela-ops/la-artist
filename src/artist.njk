@@ -1,10 +1,11 @@
 ---
 layout: base.njk
+pageType: artist
 pagination: { data: groups.artists, size: 1, alias: x }
 permalink: "/artist/{{ x.slug }}/"
 eleventyComputed:
   title: "{{ x.name | safe }}"
-  description: "ArtCards by {{ x.name | safe }}."
+  description: "{{ x.seoDescription | safe }}"
   ogImage: "/assets/art/{{ x.items[0].id }}.webp"
   ogImageWidth: "{{ x.items[0].w }}"
   ogImageHeight: "{{ x.items[0].h }}"

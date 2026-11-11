@@ -19,6 +19,58 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("json", (v) => JSON.stringify(v));
   eleventyConfig.addFilter("take", (arr, n) => arr.slice(0, n));
 
+  const orgId = `${SITE_URL}/#organization`;
+  const organization = {
+    "@type": "Organization",
+    "@id": orgId,
+    name: "ArtCard.LA",
+    url: SITE_URL,
+    logo: `${SITE_URL}/assets/artcard-wordmark.png`,
+    sameAs: ["https://www.instagram.com/artcard.la/"],
+  };
+  const website = {
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: "ArtCard.LA",
+    url: SITE_URL,
+    inLanguage: "en",
+    publisher: { "@id": orgId },
+  };
+  eleventyConfig.addGlobalData("bookJsonLd", [
+    {
+      "@type": "Book",
+      name: "ArtCard Volume 1",
+      url: "https://www.magcloud.com/browse/issue/542698",
+      image: `${SITE_URL}/assets/books/artcard-volume-1.webp`,
+      datePublished: "2014-07-24",
+      numberOfPages: 48,
+      description: "Featuring 100+ artists’ work mailed from every corner of Los Angeles, CA.",
+      publisher: { "@id": orgId },
+    },
+    {
+      "@type": "Book",
+      name: "ArtCard Volume 2",
+      url: "https://www.magcloud.com/browse/issue/759613",
+      image: `${SITE_URL}/assets/books/artcard-volume-2.webp`,
+      datePublished: "2014-06-11",
+      numberOfPages: 94,
+      description: "The second book in a series of publications featuring art from LA’s largest and most inclusive mail art project. The book spotlights 40 artists who mailed ArtCards in 2013.",
+      publisher: { "@id": orgId },
+    },
+  ]);
+  eleventyConfig.addFilter("homeJsonLd", (stats) => ({
+    "@type": "CollectionPage",
+    "@id": `${SITE_URL}/#collection`,
+    url: `${SITE_URL}/`,
+    name: "ArtCard.LA",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    mainEntity: { "@type": "Collection", name: "ArtCards", numberOfItems: stats.artworks },
+  }));
+  eleventyConfig.addFilter("seoGraph", (extra) => {
+    const extras = extra == null ? [] : (Array.isArray(extra) ? extra : [extra]);
+    return JSON.stringify({ "@context": "https://schema.org", "@graph": [organization, website, ...extras] }).replace(/</g, "\\u003c");
+  });
+
   return {
     dir: { input: "src", includes: "_includes", data: "_data", output: "_site" },
     pathPrefix: PATH_PREFIX,

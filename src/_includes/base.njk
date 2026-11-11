@@ -3,28 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% if title %}{{ title }} · {% endif %}ArtCard.LA</title>
-<meta name="description" content="{{ description or 'An archive of ArtCards: postcard-sized artworks mailed in from across Los Angeles County, organized by ZIP code.' }}">
-<link rel="stylesheet" href="{{ '/assets/css/site.css' | url }}">
-<link rel="canonical" href="{{ siteUrl }}{{ page.url | url }}">
-<meta property="og:site_name" content="ArtCard.LA">
-<meta property="og:title" content="{% if title %}{{ title }} · {% endif %}ArtCard.LA">
-<meta property="og:url" content="{{ siteUrl }}{{ page.url | url }}">
-<meta property="og:type" content="website">
 {%- set metaDesc = description or 'An archive of ArtCards: postcard-sized artworks mailed in from across Los Angeles County, organized by ZIP code.' %}
 {%- set metaTitle = (title + ' · ArtCard.LA') if title else 'ArtCard.LA' %}
 {%- set metaImage = siteUrl + ((ogImage or '/assets/og-default.png') | url) %}
-<meta property="og:description" content="{{ metaDesc }}">
+<title>{{ metaTitle | e }}</title>
+<meta name="description" content="{{ metaDesc | e }}">
+{%- if robots %}<meta name="robots" content="{{ robots | e }}">{% endif %}
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | url }}">
+<link rel="canonical" href="{{ siteUrl }}{{ page.url | url }}">
+<meta property="og:site_name" content="ArtCard.LA">
+<meta property="og:title" content="{{ metaTitle | e }}">
+<meta property="og:url" content="{{ siteUrl }}{{ page.url | url }}">
+<meta property="og:type" content="website">
+<meta property="og:description" content="{{ metaDesc | e }}">
 <meta property="og:image" content="{{ metaImage }}">
 <meta property="og:image:width" content="{{ ogImageWidth if ogImage else 1200 }}">
 <meta property="og:image:height" content="{{ ogImageHeight if ogImage else 630 }}">
-<meta property="og:image:alt" content="{{ ogImageAlt if ogImage else 'ArtCard: Los Angeles, one postcard at a time' }}">
+<meta property="og:image:alt" content="{{ (ogImageAlt if ogImage else 'ArtCard: Los Angeles, one postcard at a time') | e }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ metaTitle }}">
-<meta name="twitter:description" content="{{ metaDesc }}">
+<meta name="twitter:title" content="{{ metaTitle | e }}">
+<meta name="twitter:description" content="{{ metaDesc | e }}">
 <meta name="twitter:image" content="{{ metaImage }}">
-<meta name="twitter:image:alt" content="{{ ogImageAlt if ogImage else 'ArtCard: Los Angeles, one postcard at a time' }}">
+<meta name="twitter:image:alt" content="{{ (ogImageAlt if ogImage else 'ArtCard: Los Angeles, one postcard at a time') | e }}">
 <link rel="icon" href="{{ '/assets/favicon.png' | url }}">
+{%- if pageType == "artwork" %}
+<script type="application/ld+json">{{ a.jsonLd | seoGraph | safe }}</script>
+{%- elif pageType == "artist" %}
+<script type="application/ld+json">{{ x.jsonLd | seoGraph | safe }}</script>
+{%- elif pageType == "neighborhood" %}
+<script type="application/ld+json">{{ n.jsonLd | seoGraph | safe }}</script>
+{%- elif pageType == "zip" %}
+<script type="application/ld+json">{{ z.jsonLd | seoGraph | safe }}</script>
+{%- elif pageType == "region" %}
+<script type="application/ld+json">{{ r.jsonLd | seoGraph | safe }}</script>
+{%- elif pageType == "books" %}
+<script type="application/ld+json">{{ bookJsonLd | seoGraph | safe }}</script>
+{%- elif pageType == "home" %}
+<script type="application/ld+json">{{ groups.stats | homeJsonLd | seoGraph | safe }}</script>
+{%- else %}
+<script type="application/ld+json">{{ null | seoGraph | safe }}</script>
+{%- endif %}
 {% block head %}{% endblock %}
 </head>
 <body class="{{ bodyClass }}">
