@@ -21,6 +21,11 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("plural", (n, one, many) => `${n} ${n === 1 ? one : (many || one + "s")}`);
   eleventyConfig.addFilter("json", (v) => JSON.stringify(v));
   eleventyConfig.addFilter("take", (arr, n) => arr.slice(0, n));
+  eleventyConfig.addFilter("otherCard", (art, currentId) => {
+    const others = (art || []).filter((c) => c.id !== currentId);
+    if (!others.length) return null;
+    return others[Math.floor(Math.random() * others.length)];
+  });
 
   const orgId = `${SITE_URL}/#organization`;
   const organization = {

@@ -16,10 +16,13 @@ eleventyComputed:
 {% set nv = groups.nav[a.id] %}
 {%- set shareUrl = siteUrl + (page.url | url) -%}
 <article class="art" data-pagefind-body>
+  {%- set randCard = groups.art | otherCard(a.id) -%}
   <nav class="art-nav" aria-label="More from {{ nv.label }}" data-pagefind-ignore>
     {% if nv.prev %}<a class="share-btn" rel="prev" href="{{ ('/art/' + nv.prev.slug + '/') | url }}">← Previous</a>{% else %}<span></span>{% endif %}
+    <a class="share-btn" data-random data-current="{{ a.slug }}" data-prefix="{{ pathPrefix }}" href="{% if randCard %}{{ ('/art/' + randCard.slug + '/') | url }}{% else %}{{ '/artists/' | url }}{% endif %}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>Random</a>
     {% if nv.next %}<a class="share-btn" rel="next" href="{{ ('/art/' + nv.next.slug + '/') | url }}">Next →</a>{% else %}<span></span>{% endif %}
   </nav>
+  <script src="{{ '/assets/js/random.js' | url }}" defer></script>
   <figure>
     <button type="button" class="art-share" data-share-trigger aria-label="Share this ArtCard" title="Share this ArtCard"><img src="{{ ('/assets/art/' + a.id + '.webp') | url }}" width="{{ a.w }}" height="{{ a.h }}" alt="{{ a.seoTitle }}" data-pagefind-meta="image[src]"></button>
   </figure>
