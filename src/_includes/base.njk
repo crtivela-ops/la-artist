@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QTS73YMS6C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QTS73YMS6C');
+</script>
 {%- set metaDesc = description or 'An archive of ArtCards: postcard-sized artworks mailed in from across Los Angeles County, organized by ZIP code.' %}
 {%- set metaTitle = (title + ' · ArtCard.LA') if title else 'ArtCard.LA' %}
 {%- set metaImage = siteUrl + ((ogImage or '/assets/og/default.jpg') | url) %}
