@@ -34,10 +34,8 @@ export default function (eleventyConfig) {
     telephone: site.phoneTel,
     address: {
       "@type": "PostalAddress",
-      streetAddress: site.streetAddress,
       addressLocality: site.addressLocality,
       addressRegion: site.addressRegion,
-      postalCode: site.postalCode,
       addressCountry: "US",
     },
     contactPoint: {
