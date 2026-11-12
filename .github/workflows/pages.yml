@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
+      - run: pip3 install pillow
       - run: npm run build            # PATH_PREFIX defaults to / for artcard.la (see eleventy.config.js)
       - run: python3 scripts/check_links.py _site /
       - uses: actions/upload-pages-artifact@v3

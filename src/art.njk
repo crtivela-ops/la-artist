@@ -7,16 +7,25 @@ permalink: "/art/{{ a.slug }}/"
 eleventyComputed:
   title: "{{ a.seoTitle | safe }}"
   description: "{{ a.seoDescription | safe }}"
-  ogImage: "/assets/art/{{ a.id }}.webp"
-  ogImageWidth: "{{ a.w }}"
-  ogImageHeight: "{{ a.h }}"
+  ogType: article
+  ogImage: "/assets/og/{{ a.id }}.jpg"
   ogImageAlt: "{{ a.seoTitle | safe }}"
   shareTitle: "ArtCard by {{ a.artist | safe }}"
   shareText: "ArtCard by {{ a.artist | safe }} on ArtCard.LA"
-  shareFile: "/assets/art/{{ a.id }}.webp"
 ---
 {% set nv = groups.nav[a.id] %}
+{%- set shareUrl = siteUrl + (page.url | url) -%}
 <article class="art" data-pagefind-body>
+  <div class="art-tools" data-pagefind-ignore>
+    {% if nv.next %}<a class="share-btn" rel="next" href="{{ ('/art/' + nv.next.slug + '/') | url }}">Next →</a>{% endif %}
+    <div class="share" data-share hidden data-url="{{ shareUrl }}" data-title="{{ shareTitle }}" data-text="{{ shareText }}">
+      <button type="button" class="share-btn" data-share-native hidden><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Share</button>
+      <button type="button" class="share-btn" data-share-copy><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>Copy link</button>
+      <span class="share-status" role="status" aria-live="polite" data-share-status></span>
+      <input class="share-field" type="text" readonly value="{{ shareUrl }}" aria-label="Link to this page" data-share-field hidden>
+    </div>
+  </div>
+  <script src="{{ '/assets/js/share.js' | url }}" defer></script>
   <figure>
     <button type="button" class="art-share" data-share-trigger aria-label="Share this ArtCard" title="Share this ArtCard"><img src="{{ ('/assets/art/' + a.id + '.webp') | url }}" width="{{ a.w }}" height="{{ a.h }}" alt="{{ a.seoTitle }}" data-pagefind-meta="image[src]"></button>
   </figure>
@@ -31,13 +40,13 @@ eleventyComputed:
       {% if a.section != 'la' %}<dt>Section</dt><dd>{% for r in groups.regions %}{% if r.slug == a.section %}<a href="{{ ('/region/' + r.slug + '/') | url }}">{{ r.name }}</a>{% endif %}{% endfor %}</dd>{% endif %}
       <dt>Posted</dt><dd><time datetime="{{ a.date }}">{{ a.date | niceDate }}</time></dd>
     </dl>
-    {% include "share.njk" %}
     <p class="note">See more on Instagram <a href="https://www.instagram.com/artcard.la/">@artcard.la</a></p>
     <p class="license" data-pagefind-ignore>© {{ a.artist }}, who retains copyright. Shared under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 United States License</a>. <a href="{{ '/terms-of-use/' | url }}">Terms</a></p>
-    <nav class="pn" aria-label="More from {{ nv.label }}" data-pagefind-ignore>
-      {% if nv.prev %}<a rel="prev" href="{{ ('/art/' + nv.prev.slug + '/') | url }}">← Previous</a>{% else %}<span></span>{% endif %}
+    {% if nv.prev %}
+    <nav class="pn" aria-label="Previous from {{ nv.label }}" data-pagefind-ignore>
+      <a rel="prev" href="{{ ('/art/' + nv.prev.slug + '/') | url }}">← Previous</a>
       <span class="pnlabel">{{ nv.label }}</span>
-      {% if nv.next %}<a rel="next" href="{{ ('/art/' + nv.next.slug + '/') | url }}">Next →</a>{% else %}<span></span>{% endif %}
     </nav>
+    {% endif %}
   </div>
 </article>

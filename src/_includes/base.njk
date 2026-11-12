@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {%- set metaDesc = description or 'An archive of ArtCards: postcard-sized artworks mailed in from across Los Angeles County, organized by ZIP code.' %}
 {%- set metaTitle = (title + ' · ArtCard.LA') if title else 'ArtCard.LA' %}
-{%- set metaImage = siteUrl + ((ogImage or '/assets/og-default.png') | url) %}
+{%- set metaImage = siteUrl + ((ogImage or '/assets/og/default.jpg') | url) %}
 <title>{{ metaTitle | e }}</title>
 <meta name="description" content="{{ metaDesc | e }}">
 {%- if robots %}<meta name="robots" content="{{ robots | e }}">{% endif %}
@@ -14,11 +14,12 @@
 <meta property="og:site_name" content="ArtCard.LA">
 <meta property="og:title" content="{{ metaTitle | e }}">
 <meta property="og:url" content="{{ siteUrl }}{{ page.url | url }}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{{ ogType or 'website' }}">
 <meta property="og:description" content="{{ metaDesc | e }}">
 <meta property="og:image" content="{{ metaImage }}">
-<meta property="og:image:width" content="{{ ogImageWidth if ogImage else 1200 }}">
-<meta property="og:image:height" content="{{ ogImageHeight if ogImage else 630 }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:alt" content="{{ (ogImageAlt if ogImage else 'ArtCard: Los Angeles, one postcard at a time') | e }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ metaTitle | e }}">
