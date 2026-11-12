@@ -5,7 +5,7 @@ eleventyExcludeFromCollections: true
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>{{ siteUrl }}{{ '/' | url }}</loc></url>
-{%- for path in ['/map/','/zips/','/neighborhoods/','/artists/','/search/','/books/','/about/','/terms-of-use/','/privacy-policy/'] %}
+{%- for path in ['/map/','/zips/','/neighborhoods/','/artists/','/search/','/books/','/about/','/contact/','/terms-of-use/','/privacy-policy/','/refunds/'] %}
 <url><loc>{{ siteUrl }}{{ path | url }}</loc></url>
 {%- endfor %}
 {%- for a in groups.art %}

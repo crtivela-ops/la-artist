@@ -2,8 +2,11 @@
 // Custom domain root (artcard.la):  "/"
 // GitHub project site preview without a custom domain: "/la-artist/"
 // Can also be overridden at build time:  PATH_PREFIX=/la-artist/ npm run build
+import fs from "node:fs";
+
 export const PATH_PREFIX = process.env.PATH_PREFIX ?? "/";
 export const SITE_URL = process.env.SITE_URL ?? "https://artcard.la";
+const site = JSON.parse(fs.readFileSync(new URL("./src/_data/site.json", import.meta.url)));
 // ──────────────────────────────────────────────────────────────────────────────
 
 export default function (eleventyConfig) {
@@ -27,6 +30,23 @@ export default function (eleventyConfig) {
     url: SITE_URL,
     logo: `${SITE_URL}/assets/artcard-wordmark.png`,
     sameAs: ["https://www.instagram.com/artcard.la/"],
+    email: site.contactEmail,
+    telephone: site.phoneTel,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.streetAddress,
+      addressLocality: site.addressLocality,
+      addressRegion: site.addressRegion,
+      postalCode: site.postalCode,
+      addressCountry: "US",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: site.contactEmail,
+      telephone: site.phoneTel,
+      contactType: "customer support",
+      url: `${SITE_URL}/contact/`,
+    },
   };
   const website = {
     "@type": "WebSite",

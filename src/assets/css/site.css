@@ -51,11 +51,12 @@ dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0 0 18px}dt{c
 .pn{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:12px}.pn a{font-weight:700;text-decoration:none;padding:8px 0}.pnlabel{color:var(--muted);font-size:13px}
 .prose{max-width:720px}.prose figure{margin:24px 0}.prose figcaption{color:var(--muted);font-size:14px;margin-top:6px}
 .foot{border-top:1px solid var(--line);padding:20px 16px 40px;text-align:center;color:var(--muted);font-size:14px}
+.foot-contact{margin:.4em 0}
 .leaflet-container a{color:#7a3f8f}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .leaflet-tile-pane{filter:grayscale(1) brightness(1.06) contrast(.9)}
 .legal h2{font-size:1.1rem;display:block}.legal h3{font-size:1rem;margin-top:1.4em}
-.legal address{font-style:normal;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;line-height:1.6}
+address.agent,.legal address{font-style:normal;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;line-height:1.6;display:block}
 .updated{background:#fff7e8;border-left:4px solid var(--orange);padding:10px 14px;border-radius:6px}
 .license{font-size:13px;color:var(--muted);margin:0 0 14px}
 
