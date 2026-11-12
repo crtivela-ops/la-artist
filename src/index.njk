@@ -58,12 +58,6 @@ eleventyComputed:
   <p class="note">Darker ZIP codes sent in more cards. Tap a ZIP to see its cards. <a href="{{ '/map/' | url }}">Full-screen map</a></p>
 </section>
 
-<section class="classics">
-  <h2>From the Classics</h2>
-  <p class="note">A few earlier cards from the archive.</p>
-  {% set items = homepage.classics %}{% set showZip = true %}{% include "grid.njk" %}
-</section>
-
 <section>
   <h2>From the collection <button class="shuffle" id="shuffle" type="button">Shuffle</button></h2>
   <div id="wall" data-prefix="{{ pathPrefix }}">
