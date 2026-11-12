@@ -14,7 +14,7 @@ for dp,_,fs in os.walk(SITE):
                 if not mm: continue
                 u=mm.group(1)
             if u.startswith(('http://','https://','//')): ext.add(u.split('/')[2] if '//' in u else u); continue
-            if u.startswith(('#','mailto:','data:','javascript:')): continue
+            if u.startswith(('#','mailto:','tel:','data:','javascript:')): continue
             refs+=1
             path=urllib.parse.unquote(u.split('#')[0].split('?')[0])
             if not path.startswith('/'): path=os.path.normpath(os.path.join('/'+os.path.relpath(dp,SITE)[len('.'):] if dp!=SITE else '/', path))
