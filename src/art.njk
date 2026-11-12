@@ -18,7 +18,7 @@ eleventyComputed:
 {% set nv = groups.nav[a.id] %}
 <article class="art" data-pagefind-body>
   <figure>
-    <a href="{{ ('/assets/art/' + a.id + '.webp') | url }}"><img src="{{ ('/assets/art/' + a.id + '.webp') | url }}" width="{{ a.w }}" height="{{ a.h }}" alt="{{ a.seoTitle }}" data-pagefind-meta="image[src]"></a>
+    <button type="button" class="art-share" data-share-trigger aria-label="Share this ArtCard" title="Share this ArtCard"><img src="{{ ('/assets/art/' + a.id + '.webp') | url }}" width="{{ a.w }}" height="{{ a.h }}" alt="{{ a.seoTitle }}" data-pagefind-meta="image[src]"></button>
   </figure>
   <div class="meta">
     <h1 data-pagefind-ignore>ArtCard by <a href="{{ ('/artist/' + a.artistSlug + '/') | url }}">{{ a.artist }}</a></h1>

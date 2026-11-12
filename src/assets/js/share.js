@@ -27,19 +27,15 @@
       }).catch(function () {});
     }
 
-    if (navigator.share) {
-      shareBtn.hidden = false;
-      prepareFile();
-      shareBtn.addEventListener("click", function () {
-        var data = { title: title, text: text, url: url };
-        if (file) {
-          var withFile = { title: title, text: text, url: url, files: [file] };
-          try { if (navigator.canShare(withFile)) data = withFile; } catch (e) {}
-        }
-        navigator.share(data).catch(function (err) {
-          if (err && err.name === "AbortError") return;
-          if (data.files) navigator.share({ title: title, text: text, url: url }).catch(function () {});
-        });
+    function shareNative() {
+      var data = { title: title, text: text, url: url };
+      if (file) {
+        var withFile = { title: title, text: text, url: url, files: [file] };
+        try { if (navigator.canShare(withFile)) data = withFile; } catch (e) {}
+      }
+      navigator.share(data).catch(function (err) {
+        if (err && err.name === "AbortError") return;
+        if (data.files) navigator.share({ title: title, text: text, url: url }).catch(function () {});
       });
     }
 
@@ -52,13 +48,30 @@
       say(ok ? "Copied" : "Press Ctrl+C or \u2318C to copy");
     }
 
-    copyBtn.addEventListener("click", function () {
+    function copyLink() {
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(url).then(function () { field.hidden = true; say("Copied"); }, fallback);
       } else {
         fallback();
       }
-    });
+    }
+
+    function doShare() {
+      if (navigator.share) shareNative();
+      else copyLink();
+    }
+
+    if (navigator.share) {
+      shareBtn.hidden = false;
+      prepareFile();
+      shareBtn.addEventListener("click", shareNative);
+    }
+
+    copyBtn.addEventListener("click", copyLink);
+
+    var root = box.closest("article") || box.parentElement || document;
+    var triggers = root.querySelectorAll("[data-share-trigger]");
+    for (var t = 0; t < triggers.length; t++) triggers[t].addEventListener("click", doShare);
 
     box.hidden = false;
   }
