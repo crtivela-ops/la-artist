@@ -32,12 +32,6 @@ export default function (eleventyConfig) {
     sameAs: ["https://www.instagram.com/artcard.la/"],
     email: site.contactEmail,
     telephone: site.phoneTel,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: site.addressLocality,
-      addressRegion: site.addressRegion,
-      addressCountry: "US",
-    },
     contactPoint: {
       "@type": "ContactPoint",
       email: site.contactEmail,
