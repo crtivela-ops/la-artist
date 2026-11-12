@@ -207,4 +207,22 @@ const classics = resolveList(featured.classics, "classics");
 const week = displayWeek();
 const standouts = standoutsFor(week, featured.hero);
 
-export default { hero, classics, standouts };
+const poolRaw = JSON.parse(fs.readFileSync(new URL("./heroPool.json", import.meta.url)));
+const poolIds = (poolRaw.cards || []).map((c) => (typeof c === "number" ? c : c.id));
+const heroPoolFull = resolveList(poolIds, "heroPool");
+
+function slimHero(a) {
+  const hood = (a.neighborhoods || []).find((h) => h.slug !== "japan") || null;
+  return {
+    id: a.id,
+    slug: a.slug,
+    artist: a.artist,
+    w: a.w,
+    h: a.h,
+    hood: hood ? hood.name : null,
+    hoodSlug: hood ? hood.slug : null,
+    zips: a.zips || [],
+  };
+}
+
+export default { hero, classics, standouts, heroPool: heroPoolFull.map(slimHero) };

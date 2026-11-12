@@ -26,6 +26,10 @@
 <meta name="twitter:image" content="{{ metaImage }}">
 <meta name="twitter:image:alt" content="{{ (ogImageAlt if ogImage else 'ArtCard: Los Angeles, one postcard at a time') | e }}">
 <link rel="icon" href="{{ '/assets/favicon.png' | url }}">
+{%- if pageType == "home" and homepage.hero[0] %}
+{%- set h = homepage.hero[0] %}
+<link rel="preload" as="image" href="{{ ('/assets/art/' + h.id + '.webp') | url }}" imagesrcset="{{ ('/assets/art/' + h.id + '-400.webp') | url }} 400w, {{ ('/assets/art/' + h.id + '.webp') | url }} {{ h.w }}w" imagesizes="(max-width: 1200px) calc(100vw - 32px), 1168px" fetchpriority="high">
+{%- endif %}
 {%- if pageType == "artwork" %}
 <script type="application/ld+json">{{ a.jsonLd | seoGraph | safe }}</script>
 {%- elif pageType == "artist" %}
