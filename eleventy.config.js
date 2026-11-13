@@ -11,6 +11,7 @@ const site = JSON.parse(fs.readFileSync(new URL("./src/_data/site.json", import.
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+  eleventyConfig.addPassthroughCopy({ "src/social": "social" });
   eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
   eleventyConfig.addPassthroughCopy({ "node_modules/leaflet/dist": "assets/vendor/leaflet" });
   eleventyConfig.addGlobalData("pathPrefix", PATH_PREFIX);
