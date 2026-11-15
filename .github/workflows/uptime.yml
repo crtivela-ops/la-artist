@@ -1,0 +1,42 @@
+name: Uptime check
+
+# Separate from the Pages deploy workflow (pages.yml, concurrency group "pages").
+# This job only curls the live site and never builds or deploys.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check artcard.la and /support/
+        run: |
+          set -euo pipefail
+          check() {
+            local url="$1" out="$2"
+            local code
+            code=$(curl -sS --retry 5 --retry-delay 8 --retry-all-errors \
+              -A "ArtCard.LA uptime check" \
+              -o "$out" -w "%{http_code}" "$url")
+            echo "$url HTTP $code"
+            if [ "$code" != "200" ]; then
+              echo "FAIL: expected 200 from $url"
+              exit 1
+            fi
+          }
+          check "https://artcard.la/" /tmp/artcard-home.html
+          check "https://artcard.la/support/" /tmp/artcard-support.html
+          if ! grep -q "ArtCard" /tmp/artcard-home.html; then
+            echo "FAIL: homepage did not contain ArtCard"
+            exit 1
+          fi
+          echo "OK"

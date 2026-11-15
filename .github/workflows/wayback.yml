@@ -1,0 +1,52 @@
+name: Wayback snapshot
+
+# Monthly save of key pages to the Internet Archive. Failures are tolerated
+# (save is often rate-limited). This workflow does not build or deploy, and
+# it does not share a concurrency group with pages.yml.
+on:
+  schedule:
+    - cron: "0 16 1 * *"
+  workflow_dispatch:
+
+concurrency:
+  group: wayback
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Save key pages to the Wayback Machine
+        run: |
+          set -u
+          UA="ArtCard.LA preservation (https://artcard.la/; hello@artcard.la)"
+          failed=0
+          save() {
+            local url="$1"
+            echo "::group::save $url"
+            if curl -sS -L --max-time 180 --retry 1 --retry-delay 30 \
+              -A "$UA" -o /tmp/wayback-body -D /tmp/wayback-hdr \
+              -w "HTTP %{http_code} -> %{url_effective}\n" \
+              "https://web.archive.org/save/${url}"; then
+              echo "headers:"
+              grep -iE '^(HTTP/|content-location:|location:|x-archive-|retry-after:)' /tmp/wayback-hdr || true
+            else
+              echo "save failed for $url (exit $?)"
+              failed=$((failed + 1))
+            fi
+            echo "::endgroup::"
+            sleep 8
+          }
+          save "https://artcard.la/"
+          save "https://artcard.la/about/"
+          save "https://artcard.la/support/"
+          save "https://artcard.la/map/"
+          if [ "$failed" -gt 0 ]; then
+            echo "Note: $failed of 4 saves failed (often a rate limit). Tolerated."
+          else
+            echo "All four saves requested."
+          fi
+          exit 0
