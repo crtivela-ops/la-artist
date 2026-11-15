@@ -11,7 +11,7 @@
   gtag('js', new Date());
   gtag('config', 'G-QTS73YMS6C');
 </script>
-{%- set metaDesc = description or 'An archive of ArtCards: postcard-sized artworks mailed in from across Los Angeles County, organized by ZIP code.' %}
+{%- set metaDesc = description or 'ArtCard.LA is a finished public archive of 1,372 postcards by 746 artists mailed across Los Angeles from 2009–2015. Submissions are closed.' %}
 {%- set metaTitle = (title + ' · ArtCard.LA') if title else 'ArtCard.LA' %}
 {%- set metaImage = siteUrl + ((ogImage or '/assets/og/default.jpg') | url) %}
 <title>{{ metaTitle | e }}</title>
@@ -81,7 +81,8 @@
 <footer class="foot">
   <p>ArtCard.LA (formerly LA-Artist.com) · ArtCard, a mail art project from Los Angeles, 2009–2015. All artworks © their artists.</p>
   <p class="foot-contact"><a href="tel:{{ site.phoneTel }}">{{ site.phoneDisplay }}</a> · <a href="mailto:{{ site.contactEmail }}">{{ site.contactEmail }}</a></p>
-  <p><a href="https://www.instagram.com/artcard.la/">Instagram</a> · <a href="{{ '/books/' | url }}">Books</a> · <a href="{{ '/about/' | url }}">About the archive</a> · <a href="{{ '/support/' | url }}">Support the archive</a> · <a href="{{ '/contact/' | url }}">Contact</a> · <a href="{{ '/region/outside-la/' | url }}">Outside LA</a> · <a href="{{ '/region/us-states/' | url }}">U.S. States</a> · <a href="{{ '/region/international/' | url }}">International</a> · <a href="{{ '/region/unknown/' | url }}">Unknown</a></p>
+  <p><a href="https://www.instagram.com/artcard.la/">Instagram</a> · <a href="{{ '/books/' | url }}">Books</a> · <a href="{{ '/about/' | url }}">About the archive</a> · <a class="foot-kofi" href="{{ site.kofiUrl }}"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h11v7a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V8z"/><path d="M16 10h1.5a2.5 2.5 0 1 1 0 5H16"/><path d="M8 3s.5 1.2.5 2.2S8 7 8 7M12 3s.5 1.2.5 2.2S12 7 12 7"/></svg>Support the archive</a> · <a href="{{ '/contact/' | url }}">Contact</a> · <a href="{{ '/region/outside-la/' | url }}">Outside LA</a> · <a href="{{ '/region/us-states/' | url }}">U.S. States</a> · <a href="{{ '/region/international/' | url }}">International</a> · <a href="{{ '/region/unknown/' | url }}">Unknown</a></p>
+  <p class="foot-donate">Donations help cover the domain, hosting, and basic maintenance so the collection and map remain freely available.</p>
   <p class="legalnav"><a href="{{ '/terms-of-use/' | url }}">Terms of Use</a> · <a href="{{ '/privacy-policy/' | url }}">Privacy Policy</a> · <a href="{{ '/refunds/' | url }}">Refunds and Returns</a></p>
 </footer>
 {% block scripts %}{% endblock %}

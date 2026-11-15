@@ -67,6 +67,9 @@ dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0 0 18px}dt{c
 .prose{max-width:720px}.prose figure{margin:24px 0}.prose figcaption{color:var(--muted);font-size:14px;margin-top:6px}
 .foot{border-top:1px solid var(--line);padding:20px 16px 40px;text-align:center;color:var(--muted);font-size:14px}
 .foot-contact{margin:.4em 0}
+.foot-kofi{display:inline-flex;align-items:center;gap:5px;vertical-align:middle}
+.foot-kofi svg{flex:none}
+.foot-donate{margin:.5em auto 0;max-width:36em}
 .leaflet-container a{color:#7a3f8f}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .leaflet-tile-pane{filter:grayscale(1) brightness(1.06) contrast(.9)}
