@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { laDate, dailyGrid } from "../assets/js/grid-layout.mjs";
 
 const art = JSON.parse(fs.readFileSync(new URL("./artworks.json", import.meta.url)));
 const featured = JSON.parse(fs.readFileSync(new URL("./featured.json", import.meta.url)));
@@ -225,4 +226,16 @@ function slimHero(a) {
   };
 }
 
-export default { hero, classics, standouts, heroPool: heroPoolFull.map(slimHero) };
+// Homepage grid: compact list of every card for the client-side daily
+// selection, plus build-day layouts (same code, LA date) for the no-JS fallback.
+const dailyCards = art.map((a) => [a.slug, a.id, a.artist, (a.zips && a.zips[0]) || "", a.tw, a.th, a.artistSlug, a.w]);
+const dailyDay = laDate();
+const dailyFallback = ["wide", "mid", "narrow"].map((mode) => ({
+  mode,
+  tiles: dailyGrid(dailyCards, dailyDay, mode).map((t) => {
+    const [slug, id, artist, zip, tw, th, artistSlug, w] = dailyCards[t.i];
+    return { ...t, slug, id, artist, zip, tw, th, artistSlug, w };
+  }),
+}));
+
+export default { hero, classics, standouts, heroPool: heroPoolFull.map(slimHero), dailyCards, dailyDay, dailyFallback };

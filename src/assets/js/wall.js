@@ -9,6 +9,9 @@
     wall.innerHTML = '<ul class="grid">' + pick.map(([slug, id, artist, zip, w, h]) =>
       `<li><a class="card" href="${P}art/${slug}/"><img src="${P}assets/art/${id}-400.webp" width="${w}" height="${h}" loading="lazy" decoding="async" alt="ArtCard by ${esc(artist)}${zip ? ', ZIP ' + zip : ''}"><span class="cap"><b>${esc(artist)}</b>${zip ? ' <i>' + zip + '</i>' : ''}</span></a></li>`).join('') + '</ul>';
   }
-  fetch(P + 'assets/wall.json').then(r => r.json()).then(d => { data = d; render(); });
+  // The homepage already inlines every card for the daily grid; reuse it instead of fetching wall.json.
+  const inline = document.getElementById('daily-cards');
+  if (inline) { data = JSON.parse(inline.textContent); render(); }
+  else fetch(P + 'assets/wall.json').then(r => r.json()).then(d => { data = d; render(); });
   const b = document.getElementById('shuffle'); if (b) b.addEventListener('click', () => data && render());
 })();

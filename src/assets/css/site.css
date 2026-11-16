@@ -159,3 +159,26 @@ address.agent,.legal address{font-style:normal;background:#fff;border:1px solid 
 .home-covers{display:flex;gap:10px}
 .home-covers a{display:block;width:72px;flex:none;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 1px 4px #0001}
 .home-covers img{width:100%;height:auto;display:block}
+
+/* Homepage daily grid (home-grid.js): varied tile sizes on a dark backdrop */
+.daily-wrap{margin:0 0 2.4rem}
+.daily-wrap h1{margin:0 0 .15em}
+.daily-sub{margin:0 0 14px;color:var(--muted);font-size:15px}
+.daily{--gap:8px;container-type:inline-size;background:#2a2630;border-radius:var(--r);padding:10px;box-shadow:inset 0 0 0 1px #0000001f}
+.tiles{--cols:6;list-style:none;margin:0;padding:0;display:grid;gap:var(--gap);grid-template-columns:repeat(var(--cols),1fr);grid-auto-rows:calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols) * 2 / 3)}
+.tiles-mid{--cols:4}.tiles-narrow{--cols:2}
+.tiles li{position:relative;min-width:0}
+.tile{position:relative;display:block;height:100%;border-radius:4px;overflow:hidden;background:#3a3540;box-shadow:0 0 0 1px #ffffff14,0 1px 3px #00000059;transition:transform .16s ease,box-shadow .16s ease}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.tile-cap{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 6px;font-size:13px;font-weight:700;line-height:1.25;color:#fff;background:linear-gradient(transparent,#000000b3);opacity:0;transition:opacity .16s ease;pointer-events:none}
+.tile-cap i{font-style:normal;font-weight:400;opacity:.85}
+.tiles li:hover,.tiles li:focus-within{z-index:5}
+.tile:hover,.tile:focus-visible{transform:scale(1.06);box-shadow:0 0 0 1px #ffffff26,0 10px 28px #000000a6}
+.tile:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.tile:hover .tile-cap,.tile:focus-visible .tile-cap{opacity:1}
+/* No-JS fallback: one prebuilt layout per breakpoint */
+.daily noscript .tiles-mid,.daily noscript .tiles-narrow{display:none}
+@media(max-width:960px){.daily noscript .tiles-wide{display:none}.daily noscript .tiles-mid{display:grid}}
+@media(max-width:640px){.daily{--gap:6px;padding:6px}.daily noscript .tiles-mid{display:none}.daily noscript .tiles-narrow{display:grid}.tile-cap{font-size:12px;padding:14px 6px 4px}}
+@media(hover:none){.tile-cap{opacity:1}}
+@media(prefers-reduced-motion:reduce){.tile,.tile-cap{transition:none}.tile:hover,.tile:focus-visible{transform:none}}
