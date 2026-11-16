@@ -7,12 +7,9 @@ eleventyComputed:
 ---
 <article class="prose">
 <h1>About ArtCard.LA</h1>
-<p class="updated"><strong>ArtCard.LA is the relaunch of the ArtCard archive, formerly LA-Artist.com.</strong> The project began in October 2009 and published cards through 2015. This site brings that collection back online under the name printed on the cards themselves, so it can be browsed, searched, and mapped again.</p>
 <p class="updated">ArtCard.LA is a finished public archive of 1,372 postcards by 746 artists mailed across Los Angeles from 2009–2015. Submissions are closed. It is not an ongoing project: there are no new calls, no memberships, and no programming. The site is maintained as a non-commercial record of Los Angeles mail art. If you’d like to help keep the archive online, you can <a href="{{ '/support/' | url }}">support it here</a>.</p>
 <p>Donations help cover the domain, hosting, and basic maintenance so the collection and map remain freely available. You can support the archive on <a href="{{ site.kofiUrl }}">Ko-fi</a>.</p>
-<p>LA-Artist.com was started in October 2009 by Oliver I. Shipley and Kristen Sheline, both educators in the Los Angeles Unified School District. From 2009 to 2015 the project engaged hundreds of artists in a mail art project called ArtCard.</p>
-<p>ArtCards were blank pre-addressed postcards that were distributed across Los Angeles County (in coffee shops, art galleries, community centers, schools, etc.) by volunteers and mailed via the United States Postal Service.</p>
-<p>People were encouraged to use each ArtCard as a free 4” × 6” canvas on which to create and mail in their own works of art to be published — first at LA-Artist.com, and now here at ArtCard.LA. The resulting collection of sketches, collages, photographs, and words helps to document L.A. County’s varied creative framework and influence.</p>
+<p>LA-Artist.com was started in October 2009 by Oliver I. Shipley and Kristen Sheline, both educators in the Los Angeles Unified School District. ArtCards were blank pre-addressed postcards distributed across Los Angeles County (in coffee shops, art galleries, community centers, schools, etc.) by volunteers and mailed via the United States Postal Service. People were encouraged to use each ArtCard as a free 4” × 6” canvas on which to create and mail in their own works of art to be published — first at LA-Artist.com, and now here at ArtCard.LA. The resulting collection of sketches, collages, photographs, and words helps to document L.A. County’s varied creative framework and influence.</p>
 <p>Completed ArtCards are archived and mapped online by artist name, L.A. neighborhood and ZIP code. The collection has also been exhibited in museums and galleries, printed in <a href="{{ '/books/' | url }}">ArtCard Volume 1 and Volume 2</a>, made into pins and stickers, and shared by people online.</p>
 <figure class="artcard-sample">
   <div class="artcard-sample-wrap">
@@ -27,7 +24,6 @@ eleventyComputed:
   <figcaption>The first edition ArtCard, printed in 2009. The original P.O. Box is no longer in use.</figcaption>
 </figure>
 <h2>The original team</h2>
-<p>These are the people who built and ran the project in its first years:</p>
 <ul>
   <li>Oliver I. Shipley (Founder, Organizer &amp; Curator)</li>
   <li>Kristen Sheline (Co-founder)</li>
@@ -38,11 +34,9 @@ eleventyComputed:
   <li>Michelle Cohen (Curator)</li>
 </ul>
 <h2>The rebrand and relaunch</h2>
-<p>In November 2026 the archive returned as ArtCard.LA. The new name is the one people already used for the cards, and it marks a new home for the same collection — {{ groups.stats.artworks }} ArtCards published on LA-Artist.com between {{ groups.stats.first | niceDate }} and {{ groups.stats.last | niceDate }}.</p>
-<p>You will still see LA-Artist.com on the original cards, in the books, and in earlier exhibitions. ArtCard.LA is where the archive lives now. You can also follow the archive on <a href="https://www.instagram.com/artcard.la/">Instagram</a>.</p>
+<p>In November 2026 the archive returned as ArtCard.LA, the name already used for the cards. It is a new home for the same collection — {{ groups.stats.artworks }} ArtCards published on LA-Artist.com between {{ groups.stats.first | niceDate }} and {{ groups.stats.last | niceDate }}. You will still see LA-Artist.com on the original cards, in the books, and in earlier exhibitions. Follow the archive on <a href="https://www.instagram.com/artcard.la/">Instagram</a>.</p>
 <h2>About this archive</h2>
-<p>ArtCard.LA is a static archive of those published ArtCards. Each card is listed under the artist name and ZIP code written on it, as recorded on the original site. Cards without a usable ZIP code are grouped under <a href="{{ '/region/outside-la/' | url }}">Outside LA / California</a>, <a href="{{ '/region/us-states/' | url }}">U.S. States</a>, <a href="{{ '/region/international/' | url }}">International</a> and <a href="{{ '/region/unknown/' | url }}">Unknown</a>. Images are shown at the size they were originally published.</p>
-<p>All artworks remain © their artists.</p>
+<p>Each card is listed under the artist name and ZIP code written on it, as recorded on the original site. Cards without a usable ZIP code are grouped under <a href="{{ '/region/outside-la/' | url }}">Outside LA / California</a>, <a href="{{ '/region/us-states/' | url }}">U.S. States</a>, <a href="{{ '/region/international/' | url }}">International</a> and <a href="{{ '/region/unknown/' | url }}">Unknown</a>. Images are shown at the size they were originally published. All artworks remain © their artists.</p>
 <h2>Map data</h2>
 <p>ZIP code boundaries: County of Los Angeles Enterprise GIS, “Zipcodes” layer (Administrative Boundaries), accessed November 2026 and simplified for the web, used under the <a href="https://egis-lacounty.hub.arcgis.com/pages/terms-of-use">LA County GIS Data Portal Terms of Use</a>. This use does not imply endorsement by the County of Los Angeles. Base map tiles © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors. Map built with <a href="https://leafletjs.com">Leaflet</a>.</p>
 </article>
