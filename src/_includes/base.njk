@@ -56,23 +56,49 @@
 {%- else %}
 <script type="application/ld+json">{{ null | seoGraph | safe }}</script>
 {%- endif %}
+<script>document.documentElement.classList.add("js");</script>
+<script src="{{ '/assets/js/nav.js' | url }}" defer></script>
 {% block head %}{% endblock %}
 </head>
 <body class="{{ bodyClass }}">
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
-  <a class="logo wordmark" href="{{ '/' | url }}" aria-label="ArtCard.LA home"><img src="{{ '/assets/artcard-wordmark.png' | url }}" width="280" height="65" alt=""></a>
-  <p class="formerly">formerly LA-Artist.com</p>
-  <nav class="nav" aria-label="Main">
-    <a href="{{ '/map/' | url }}">Map</a>
-    <a href="{{ '/zips/' | url }}">ZIP codes</a>
-    <a href="{{ '/neighborhoods/' | url }}">Neighborhoods</a>
-    <a href="{{ '/artists/' | url }}">Artists</a>
-    <a href="{{ '/search/' | url }}">Search</a>
-    <a href="{{ '/books/' | url }}">Books</a>
-    <a href="{{ '/about/' | url }}">About</a>
-    <a href="{{ '/contact/' | url }}">Contact</a>
-    <a class="ig" href="https://www.instagram.com/artcard.la/"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>Instagram</a>
+  <div class="top-bar">
+    <div class="brand">
+      <a class="logo wordmark" href="{{ '/' | url }}" aria-label="ArtCard.LA home"><img src="{{ '/assets/artcard-wordmark.png' | url }}" width="280" height="65" alt=""></a>
+      <p class="formerly">formerly LA-Artist.com</p>
+    </div>
+    <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+      <svg class="nav-toggle-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path class="nav-icon-menu" d="M4 7h16M4 12h16M4 17h16"/>
+        <path class="nav-icon-close" d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+      <span class="nav-toggle-label">Menu</span>
+    </button>
+  </div>
+  <nav class="nav" id="site-menu" aria-label="Main">
+    <ul class="nav-list">
+      <li>
+        <span class="nav-label" id="nav-explore-label">Explore</span>
+        <ul class="nav-sub" aria-labelledby="nav-explore-label">
+          <li><a href="{{ '/map/' | url }}">Map</a></li>
+          <li><a href="{{ '/zips/' | url }}">ZIP codes</a></li>
+          <li><a href="{{ '/neighborhoods/' | url }}">Neighborhoods</a></li>
+        </ul>
+      </li>
+      <li><a href="{{ '/artists/' | url }}">Artists</a></li>
+      <li><a href="{{ '/search/' | url }}">Search</a></li>
+      <li>
+        <a href="{{ '/about/' | url }}">About</a>
+        <ul class="nav-sub">
+          <li><a href="{{ '/contact/' | url }}">Contact</a></li>
+          <li><a href="{{ '/books/' | url }}">Books</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav-list nav-secondary">
+      <li><a class="ig" href="https://www.instagram.com/artcard.la/"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>Instagram</a></li>
+    </ul>
   </nav>
 </header>
 <main id="main">
