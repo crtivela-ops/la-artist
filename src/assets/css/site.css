@@ -159,3 +159,17 @@ address.agent,.legal address{font-style:normal;background:#fff;border:1px solid 
 .home-covers{display:flex;gap:10px}
 .home-covers a{display:block;width:72px;flex:none;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 1px 4px #0001}
 .home-covers img{width:100%;height:auto;display:block}
+
+/* Homepage pile: a shoebox of postcards dumped on the table (pile.js) */
+.pile-wrap{margin:0 0 2.4rem}
+.pile{position:relative;height:clamp(440px,62vh,600px);background:#efe8de;border-radius:var(--r);overflow:hidden;box-shadow:inset 0 0 0 1px #0000000a,inset 0 8px 30px #0000000d}
+.pile-card{position:absolute;left:var(--x);top:var(--y);width:clamp(150px,17%,230px);padding:5px;background:#fff;border-radius:3px;box-shadow:0 1px 2px #0000002e,0 6px 16px #00000024;transform:translate(-50%,-50%) rotate(var(--r));transition:transform .15s ease,box-shadow .15s ease;line-height:0}
+.pile-card img{width:100%;height:auto;border-radius:1px;background:#e9e4dd}
+.pile-card:hover,.pile-card:focus-visible{z-index:200!important;transform:translate(-50%,-54%) rotate(calc(var(--r) * .4)) scale(1.08);box-shadow:0 4px 8px #0003,0 18px 40px #00000038}
+.pile-card:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.pile-cap{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 18px;margin:12px 2px 0}
+.pile-cap h1{margin:0;font-size:clamp(1.35rem,3.4vw,2rem)}
+.pile-cap p{margin:0;color:var(--muted);font-size:14px}
+@media(max-width:960px){.pile-card{width:clamp(130px,22%,190px)}}
+@media(max-width:640px){.pile{height:min(70vh,520px)}.pile-card{width:clamp(110px,38%,160px);padding:4px}}
+@media(prefers-reduced-motion:reduce){.pile-card{transition:none}.pile-card:hover,.pile-card:focus-visible{transform:translate(-50%,-50%) rotate(var(--r))}}

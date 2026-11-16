@@ -2,51 +2,28 @@
 layout: base.njk
 bodyClass: home
 pageType: home
+homePile: true
 eleventyComputed:
   title: "Los Angeles mail art, one postcard at a time"
   description: "ArtCard.LA is a finished public archive of 1,372 postcards by 746 artists mailed across Los Angeles from 2009–2015. Submissions are closed. Organized by ZIP code and neighborhood. Formerly LA-Artist.com."
 ---
-<section class="hero" data-hero data-prefix="{{ pathPrefix }}" aria-roledescription="carousel" aria-label="Featured ArtCards" tabindex="0">
-  <p class="hero-kicker">Featured Card</p>
-  <div class="hero-stage">
-    {% for a in homepage.hero %}
-    <a class="hero-slide{% if loop.first %} is-active{% endif %}" data-hero-slide href="{{ ('/art/' + a.slug + '/') | url }}"{% if not loop.first %} hidden{% endif %} aria-hidden="{{ 'false' if loop.first else 'true' }}">
-      <img
-        src="{{ ('/assets/art/' + a.id + '.webp') | url }}"
-        srcset="{{ ('/assets/art/' + a.id + '-400.webp') | url }} 400w, {{ ('/assets/art/' + a.id + '.webp') | url }} {{ a.w }}w"
-        sizes="(max-width: 1200px) calc(100vw - 32px), 1168px"
-        width="{{ a.w }}" height="{{ a.h }}"
-        alt="ArtCard by {{ a.artist }}"
-        data-hero-id="{{ a.id }}"
-        {% if loop.first %}fetchpriority="high" decoding="async"{% else %}loading="lazy" decoding="async"{% endif %}>
-    </a>
-    {% endfor %}
-    <button class="hero-ctrl hero-prev" type="button" data-hero-prev aria-label="Previous ArtCard" hidden>‹</button>
-    <button class="hero-ctrl hero-next" type="button" data-hero-next aria-label="Next ArtCard" hidden>›</button>
-  </div>
-  <div class="hero-bar">
-    {%- for a in homepage.hero %}
-    <p class="hero-cap"{% if not loop.first %} hidden{% endif %} data-hero-cap data-hero-slide-cap>
-      <a href="{{ ('/art/' + a.slug + '/') | url }}">ArtCard by {{ a.artist }}</a>
-      {%- if a.neighborhoods and a.neighborhoods[0] and a.neighborhoods[0].slug != 'japan' -%}
-        <i> · <a href="{{ ('/neighborhood/' + a.neighborhoods[0].slug + '/') | url }}">{{ a.neighborhoods[0].name }}</a></i>
-      {%- elif a.zips[0] -%}
-        <i> · ZIP {{ a.zips | join(', ') }}</i>
-      {%- endif %}
-    </p>
+<section class="pile-wrap" aria-labelledby="pile-h">
+  <div class="pile" data-pile data-prefix="{{ pathPrefix }}" data-built="{{ homepage.pileDay }}">
+    <noscript>
+    {%- for c in homepage.pileFallback %}
+      <a class="pile-card" href="{{ ('/art/' + c.slug + '/') | url }}" style="--x:{{ c.x }}%;--y:{{ c.y }}%;--r:{{ c.r }}deg;z-index:{{ c.z }}"><img src="{{ ('/assets/art/' + c.id + '-400.webp') | url }}" width="{{ c.w }}" height="{{ c.h }}" loading="lazy" decoding="async" alt="ArtCard by {{ c.artist }}{% if c.zip %}, ZIP {{ c.zip }}{% endif %}"></a>
     {%- endfor %}
-    <div class="hero-dots" role="tablist" aria-label="Choose a featured ArtCard">
-      {% for a in homepage.hero %}
-      <button type="button" data-hero-dot role="tab" aria-label="ArtCard by {{ a.artist }}"{% if loop.first %} class="is-active" aria-current="true"{% endif %}></button>
-      {% endfor %}
-    </div>
+    </noscript>
   </div>
-  <script type="application/json" data-hero-pool>{{ homepage.heroPool | dump | safe }}</script>
+  <div class="pile-cap">
+    <h1 id="pile-h">ArtCard: Los Angeles, one postcard at a time</h1>
+    <p>A different handful from the shoebox every day. Pick any card to see it up close.</p>
+  </div>
+  <script type="application/json" id="pile-cards">{{ homepage.pileCards | dump | replace("</", "<\\/") | safe }}</script>
 </section>
-<script src="{{ '/assets/js/hero.js' | url }}"></script>
+<script type="module" src="{{ '/assets/js/pile.js' | url }}"></script>
 
 <section class="intro">
-  <h1>ArtCard: Los Angeles, one postcard at a time</h1>
   <p>ArtCard.LA is a finished public archive of 1,372 postcards by 746 artists mailed across Los Angeles from 2009–2015. Submissions are closed.</p>
   <p>From 2009 to 2015, volunteers left blank, pre-addressed postcards in coffee shops, galleries, libraries, community centers and schools across Los Angeles County. People turned each one into a free 4″ × 6″ canvas, wrote their name and ZIP code on the front, and mailed it back.</p>
   <p class="stats">{{ groups.stats.artworks }} ArtCards · {{ groups.stats.artists }} artists · {{ groups.stats.zips }} ZIP codes · {{ groups.stats.neighborhoods }} neighborhoods</p>

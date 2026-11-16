@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { laDate, dailyPile } from "../assets/js/pile-layout.mjs";
 
 const art = JSON.parse(fs.readFileSync(new URL("./artworks.json", import.meta.url)));
 const featured = JSON.parse(fs.readFileSync(new URL("./featured.json", import.meta.url)));
@@ -225,4 +226,13 @@ function slimHero(a) {
   };
 }
 
-export default { hero, classics, standouts, heroPool: heroPoolFull.map(slimHero) };
+// Homepage pile: compact list of every card for the client-side daily draw,
+// plus a build-time arrangement (same algorithm, build date in LA) for no-JS.
+const pileCards = art.map((a) => [a.slug, a.id, a.artist, (a.zips && a.zips[0]) || "", a.tw, a.th]);
+const pileDay = laDate();
+const pileFallback = dailyPile(pileCards.length, pileDay, "wide").map((p) => {
+  const [slug, id, artist, zip, w, h] = pileCards[p.i];
+  return { ...p, slug, id, artist, zip, w, h };
+});
+
+export default { hero, classics, standouts, heroPool: heroPoolFull.map(slimHero), pileCards, pileDay, pileFallback };
