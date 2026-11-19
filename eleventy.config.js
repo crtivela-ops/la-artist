@@ -37,11 +37,9 @@ export default function (eleventyConfig) {
     logo: `${SITE_URL}/assets/artcard-wordmark.png`,
     sameAs: ["https://www.instagram.com/artcard.la/"],
     email: site.contactEmail,
-    telephone: site.phoneTel,
     contactPoint: {
       "@type": "ContactPoint",
       email: site.contactEmail,
-      telephone: site.phoneTel,
       contactType: "customer support",
       url: `${SITE_URL}/contact/`,
     },
